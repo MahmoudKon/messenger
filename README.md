@@ -10,6 +10,3 @@
 `
     php artisan migrate
 `
-
-
-hello

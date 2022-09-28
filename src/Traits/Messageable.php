@@ -3,6 +3,7 @@
 namespace Messenger\Chat\Traits;
 
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Carbon\Carbon;
 use Messenger\Chat\Models\Conversation;
 use Messenger\Chat\Models\Message;
@@ -12,14 +13,18 @@ trait Messageable
 {
     protected $append = ['avatar'];
     
-    public function getAvatarAttribute($value)
+    protected function avatar(): Attribute
     {
-        return $this->image ?? 'http://cdn.onlinewebfonts.com/svg/img_568657.png';
+        return Attribute::make(
+            get: fn ($value) => $this->image ?? 'http://cdn.onlinewebfonts.com/svg/img_568657.png',
+        );
     }
-
-    public function getLastSeenAttribute($value)
+    
+    protected function lastSeen(): Attribute
     {
-        return Carbon::parse($value)->diffForHumans();
+        return Attribute::make(
+            get: fn ($value) => Carbon::parse($value)->diffForHumans(),
+        );
     }
 
     public function unreadMessages()

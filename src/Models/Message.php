@@ -17,14 +17,18 @@ class Message extends Model
 
     protected $with = ['user'];
 
-    public function getCreatedAtAttribute($value)
+    protected function createdAt(): Attribute
     {
-        return Carbon::parse($value)->diffForHumans();
+        return Attribute::make(
+            get: fn ($value) => Carbon::parse($value)->diffForHumans(),
+        );
     }
 
-    public function getMessageAttribute($value)
+    protected function message(): Attribute
     {
-        return $this->type == 'text' ? $value : asset("uploads/messages/$value");
+        return Attribute::make(
+            get: fn ($value) => $this->type == 'text' ? $value : asset("uploads/messages/$value"),
+        );
     }
 
     public function user()
