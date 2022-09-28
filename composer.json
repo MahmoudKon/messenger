@@ -1,0 +1,26 @@
+{
+    "name": "mahmoudkon/messenger",
+    "description": "messenger chat",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mahmoud mohammed",
+            "email": "mahmoud.mohammed@ivas.com.eg"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Messenger\\Chat\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Messenger\\Chat\\MessengerServiceProvider"
+            ]
+        }
+    }
+}
