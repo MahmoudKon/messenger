@@ -83,7 +83,6 @@ when back to online the icon will be double ckeck.
 When the message is read, the color of the icon will change.
 </p>
 
-
 #
 
 <p>
