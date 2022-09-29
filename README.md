@@ -14,13 +14,11 @@ You can install this package via composer using:
     composer require mahmoudkon/messenger
 ```
 
-
 and run install to create assets && views && migrations files:
 
 ```php
     php artisan messenger:install
 ```
-
 
 run migrations:
 
