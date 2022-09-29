@@ -6,6 +6,18 @@
 
 ##
 
+# Requirements
+
+- This messenger package requires PHP ^8.0 and laravel ^9.0.
+- Messenger version 7 for PHP < 8.0.
+- Install pusher server and set pusher configration.
+- install laravel echo from  <a href='https://laravel.com/docs/9.x/broadcasting#pusher-channels'> laravel documentation </a>.
+- make enable for client events <a href='https://dashboard.pusher.com/apps/{APP_KEY}/settings'> here </a>.
+
+<img src='https://github.com/MahmoudKon/messenger/blob/master/imgs/enable-client-events.PNG' alt='enable-client-events.PNG' width='300px'>
+
+##
+
 # Installation
 
 You can install this package via composer using:
