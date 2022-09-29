@@ -14,7 +14,7 @@
 - install laravel echo from  <a href='https://laravel.com/docs/9.x/broadcasting#pusher-channels'> laravel documentation </a>.
 - make enable for client events <a href='https://dashboard.pusher.com/apps/{APP_KEY}/settings'> here </a>.
 
-<img src='https://github.com/MahmoudKon/messenger/blob/master/imgs/enable-client-events.PNG' alt='enable-client-events.PNG' width='300px'>
+<img src='https://github.com/MahmoudKon/messenger/blob/master/imgs/enable-client-events.PNG' alt='enable-client-events.PNG'>
 
 ##
 
