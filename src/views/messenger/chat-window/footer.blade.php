@@ -29,7 +29,7 @@
                 <div class="input-group">
                     <input class="form-control px-0" placeholder="Type your message..." rows="1" data-emoji-input="" data-autosize="true" name="message">
 
-                    <a href="#" class="input-group-text text-body pe-0" data-emoji-btn="">
+                    {{-- <a href="#" class="input-group-text text-body pe-0" data-emoji-btn="">
                         <span class="icon icon-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -40,7 +40,7 @@
                                 <line x1="15" y1="9" x2="15.01" y2="9"></line>
                             </svg>
                         </span>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
 
