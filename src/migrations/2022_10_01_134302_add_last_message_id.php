@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class createAddLastMessageIDForConversationsTable extends Migration
+class AddLastMessageId extends Migration
 {
     /**
      * Run the migrations.
@@ -21,7 +21,7 @@ class createAddLastMessageIDForConversationsTable extends Migration
             if (! Schema::hasColumn('users', 'last_seen')) {
                 $table->timestamp('last_seen')->nullable();
             }
-            
+
             if (! Schema::hasColumn('users', 'image')) {
                 $table->string('image')->nullable();
             }
@@ -38,5 +38,15 @@ class createAddLastMessageIDForConversationsTable extends Migration
         Schema::table('conversations', function (Blueprint $table) {
             $table->dropConstrainedForeignId('last_message_id');
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            if (! Schema::hasColumn('users', 'last_seen')) {
+                $table->dropColumn('last_seen');
+            }
+
+            if (! Schema::hasColumn('users', 'image')) {
+                $table->dropColumn('image');
+            }
+        });
     }
-};
+}
