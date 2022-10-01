@@ -10,7 +10,10 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+        "php": "^8.0",
+        "laravel/framework": "^9.2"
+    },
     "autoload": {
         "psr-4": {
             "Messenger\\Chat\\": "src/"
