@@ -26,6 +26,27 @@ You can install this package via composer using:
     composer require mahmoudkon/messenger
 ```
 
+
+For php < 8
+
+```bash
+    composer require mahmoudkon/messenger:7.0
+```
+
+
+Use this trait in your ``User.php`` model
+
+```php
+    ...
+    use Illuminate\Foundation\Auth\User as Authenticatable;
+    use Messenger\Chat\Traits\Messageable;
+
+    class User extends Authenticatable
+    {
+        use Messageable;
+    }
+```
+
 and run install to create assets && views && migrations files:
 
 ```php

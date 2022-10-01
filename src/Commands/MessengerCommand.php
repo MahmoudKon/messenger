@@ -44,11 +44,13 @@ class MessengerCommand extends Command
     protected function exportBackend()
     {
         if (stripos(file_get_contents(base_path('routes/web.php')), 'Messenger\Chat\MessengerRoutes::routes();') === false) {
-            File::append(base_path('routes/web.php'), 'Messenger\Chat\MessengerRoutes::routes();');
+            $routes = "\n\nMessenger\Chat\MessengerRoutes::routes();\n\n";
+            File::append(base_path('routes/web.php'), $routes);
         }
 
         if (stripos(file_get_contents(base_path('routes/channels.php')), 'Messenger\Chat\MessengerRoutes::channels();') === false) {
-            File::append(base_path('routes/channels.php'), 'Messenger\Chat\MessengerRoutes::channels();');
+            $channels = "\n\nMessenger\Chat\MessengerRoutes::channels();\n\n";
+            File::append(base_path('routes/channels.php'), $channels);
         }
         
         File::copyDirectory(__DIR__.'/../assets/', public_path('assets'));
