@@ -17,11 +17,15 @@ return new class extends Migration
             $table->foreignId('last_message_id')->nullable()->constrained('messages')->cascadeOnUpdate()->nullOnDelete();
         });
 
-        if (! Schema::hasColumn('users', 'last_seen')) {
-            Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
+            if (! Schema::hasColumn('users', 'last_seen')) {
                 $table->timestamp('last_seen')->nullable();
-            });
-        }
+            }
+            
+            if (! Schema::hasColumn('users', 'image')) {
+                $table->string('image')->nullable();
+            }
+        });
     }
 
     /**
