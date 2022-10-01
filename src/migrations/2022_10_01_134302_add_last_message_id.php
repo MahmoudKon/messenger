@@ -21,7 +21,7 @@ return new class extends Migration
             if (! Schema::hasColumn('users', 'last_seen')) {
                 $table->timestamp('last_seen')->nullable();
             }
-            
+
             if (! Schema::hasColumn('users', 'image')) {
                 $table->string('image')->nullable();
             }
@@ -38,5 +38,15 @@ return new class extends Migration
         Schema::table('conversations', function (Blueprint $table) {
             $table->dropConstrainedForeignId('last_message_id');
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            if (! Schema::hasColumn('users', 'last_seen')) {
+                $table->dropColumn('last_seen');
+            }
+
+            if (! Schema::hasColumn('users', 'image')) {
+                $table->dropColumn('image');
+            }
+        });
     }
-};
+}
