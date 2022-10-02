@@ -8,14 +8,14 @@
         <title>Messenger</title>
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="{{ asset('/') }}assets/messenger/images/icon.png" type="image/x-icon">
+        <link rel="shortcut icon" href="{{ env('APP_URL') }}/public/assets/messenger/images/icon.png" type="image/x-icon">
 
         <!-- Template CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <script type="text/javascript" src="{{ asset('/') }}js/app.js"></script>
-        <link rel="stylesheet" href="{{ asset('/') }}assets/messenger/css/template.bundle.dark.css">
-        <link rel="stylesheet" href="{{ asset('/') }}assets/messenger/css/template.dark.bundle.css" media="(prefers-color-scheme: dark)">
-        <link rel="stylesheet" href="{{ asset('/') }}assets/messenger/css/style.css">
+        <script type="text/javascript" src="{{ env('APP_URL') }}/public/js/app.js"></script>
+        <link rel="stylesheet" href="{{ env('APP_URL') }}/public/assets/messenger/css/template.bundle.dark.css">
+        <link rel="stylesheet" href="{{ env('APP_URL') }}/public/assets/messenger/css/template.dark.bundle.css" media="(prefers-color-scheme: dark)">
+        <link rel="stylesheet" href="{{ env('APP_URL') }}/public/assets/messenger/css/style.css">
 
     <body>
         <!-- Layout -->
@@ -38,10 +38,10 @@
             const AUTH_USER_ID = {{ auth()->id() }};
             audio = new Audio(`{{ asset('assets/messenger/audios/success.mp3') }}`);
         </script>
-        <script type="text/javascript" src="{{ asset('/') }}assets/messenger/js/jquery-3.6.1.min.js"></script>
-        <script type="text/javascript" src="{{ asset('/') }}assets/messenger/js/vendor.js"></script>
-        <script type="text/javascript" src="{{ asset('/') }}assets/messenger/js/template.js"></script>
-        <script type="text/javascript" src="{{ asset('/') }}assets/messenger/js/moment.js"></script>
-        <script type="text/javascript" src="{{ asset('/') }}assets/messenger/js/messenger.js"></script>
+        <script type="text/javascript" src="{{ env('APP_URL') }}/public/assets/messenger/js/jquery-3.6.1.min.js"></script>
+        <script type="text/javascript" src="{{ env('APP_URL') }}/public/assets/messenger/js/vendor.js"></script>
+        <script type="text/javascript" src="{{ env('APP_URL') }}/public/assets/messenger/js/template.js"></script>
+        <script type="text/javascript" src="{{ env('APP_URL') }}/public/assets/messenger/js/moment.js"></script>
+        <script type="text/javascript" src="{{ env('APP_URL') }}/public/assets/messenger/js/messenger.js"></script>
     </body>
 </html>
