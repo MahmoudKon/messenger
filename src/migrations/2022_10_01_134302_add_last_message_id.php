@@ -14,8 +14,8 @@ class AddLastMessageId extends Migration
     public function up()
     {
         Schema::table('conversations', function (Blueprint $table) {
-            $table->unsignedInteger('last_message_id');
-            $table->foreign('last_message_id')->references('id')->on('messages')->onDelete('cascade');
+            $table->unsignedInteger('last_message_id')->nullable();
+            $table->foreign('last_message_id')->references('id')->on('messages')->onDelete('set null');
         });
 
         Schema::table('users', function (Blueprint $table) {
