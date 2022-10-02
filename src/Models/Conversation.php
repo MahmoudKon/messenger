@@ -2,10 +2,8 @@
 
 namespace Messenger\Chat\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 
 class Conversation extends Model
 {
@@ -15,12 +13,12 @@ class Conversation extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class)->select('id', 'name', 'email', 'image')->withDefault(['name' => '', 'email' => '', 'image' => '']);
+        return $this->belongsTo(config('auth.providers.users.model'))->select('id', 'name', 'email', 'image')->withDefault(['name' => '', 'email' => '', 'image' => '']);
     }
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'conversation_user')->withPivot(['joined_at', 'role']);
+        return $this->belongsToMany(config('auth.providers.users.model'), 'conversation_user')->withPivot(['joined_at', 'role']);
     }
 
     public function messages()

@@ -7,7 +7,6 @@ use Messenger\Chat\Events\MessageCreated;
 use Messenger\Chat\Requests\MessageRequest;
 use Messenger\Chat\Models\Conversation;
 use Messenger\Chat\Models\Message;
-use App\Models\User;
 use Messenger\Chat\Models\MessageUser;
 use Messenger\Chat\Traits\UploadFile;
 use Illuminate\Support\Facades\DB;
@@ -17,8 +16,9 @@ class MessageController extends Controller
 {
     use UploadFile;
 
-    public function index(User $user)
+    public function index($id)
     {
+        $user = config('auth.providers.users.model')::findOrFail($id);
         $conversation = auth()->user()->conversations()->whereHas('users', function($query) use($user) {
                                 $query->where('user_id', $user->id);
                             })
@@ -27,7 +27,7 @@ class MessageController extends Controller
                                     $query->where('user_id', '<>', auth()->id());
                             }])->first();
 
-                            
+
         if ($conversation) {
             $unread_messages = $this->getUnreadMessages($conversation->id);
             $result = $this->getMessages($conversation->id);

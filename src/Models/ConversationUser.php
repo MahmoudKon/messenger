@@ -3,7 +3,6 @@
 namespace Messenger\Chat\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 
 class ConversationUser extends Model
 {
@@ -20,6 +19,6 @@ class ConversationUser extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(config('auth.providers.users.model'));
     }
 }

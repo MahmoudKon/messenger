@@ -3,7 +3,6 @@
 namespace Messenger\Chat\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Messenger\Chat\Traits\UploadFile;
 
 class ConversationController extends Controller
@@ -18,7 +17,7 @@ class ConversationController extends Controller
 
     public function conversations()
     {
-        $users = User::exceptAuth()->search()
+        $users = config('auth.providers.users.model')::exceptAuth()->search()
                         ->hasConversationWithAuth()
                         ->with([
                             'conversations' => function($query) { $query->onlyWithAuth(); }
@@ -40,7 +39,7 @@ class ConversationController extends Controller
 
     public function users()
     {
-        $users = User::exceptAuth()->search()
+        $users = config('auth.providers.users.model')::exceptAuth()->search()
                         ->with([
                             'conversations' => function($query) { $query->onlyWithAuth(); }
                         ])->orderBy('last_seen', 'DESC')->paginate(8);
@@ -56,12 +55,13 @@ class ConversationController extends Controller
 
     public function updateLastSeen()
     {
-        User::find(request('user_id'))->update(['last_seen' => now()]);
+        config('auth.providers.users.model')::find(request('user_id'))->update(['last_seen' => now()]);
         return 'updated';
     }
 
-    public function userDetails(User $user)
+    public function userDetails($id)
     {
+        $user = config('auth.providers.users.model')::findOrFail($id);
         return view('messenger.includes.show', compact('user'));
     }
 }
