@@ -88,7 +88,7 @@ You can install this package via composer using:
 
 #
 
-<p>4- send Media or attachment</p>
+<p>4- send Media or attachment and download</p>
 
 <p>
     <img src="https://github.com/MahmoudKon/messenger/blob/master/imgs/send-media.PNG" alt="send media">
@@ -96,7 +96,7 @@ You can install this package via composer using:
 
 #
 
-<p>5- Typeing event</p>
+<p>5- Typing event</p>
 
 <p>
     <img src="https://github.com/MahmoudKon/messenger/blob/master/imgs/typing.PNG" alt="typing">
@@ -115,7 +115,7 @@ You can install this package via composer using:
 7- read icons
 * <p> when send message to user and he is offline, the icon will be one check icon. </p>
 * <p> when back to online the icon will be double ckeck. </p>
-* <p> When the message is read, the color of the icon will change. </p>
+* <p> When the message is read, the color of the icon will change to green color. </p>
 
 <p>
     <img src="https://github.com/MahmoudKon/messenger/blob/master/imgs/not-receive-message.PNG" alt="not-receive-message">

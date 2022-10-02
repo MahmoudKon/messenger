@@ -15,11 +15,16 @@ class createMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->engine = "InnoDB";
-            $table->id();
+            $table->increments('id');
             $table->text('message');
             $table->string('type')->default('text');
-            $table->foreignId('conversation_id')->constrained('conversations')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnUpdate()->nullOnDelete();
+  
+            $table->unsignedInteger('conversation_id');
+            $table->foreign('conversation_id')->references('id')->on('conversations')->onDelete('cascade');
+  
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+  
             $table->timestamps();
             $table->softDeletes();
         });

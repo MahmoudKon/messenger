@@ -15,11 +15,14 @@ class createConversationsTable extends Migration
     {
         Schema::create('conversations', function (Blueprint $table) {
             $table->engine = "InnoDB";
-            $table->id();
+            $table->increments('id');
             $table->string('label')->nullable();
             $table->string('image')->nullable();
             $table->enum('type', ['peer', 'group'])->default('peer');
-            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnUpdate()->nullOnDelete();
+  
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+  
             $table->timestamps();
         });
     }

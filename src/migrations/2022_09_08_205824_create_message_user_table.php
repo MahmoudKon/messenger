@@ -15,8 +15,13 @@ class createMessageUserTable extends Migration
     {
         Schema::create('message_user', function (Blueprint $table) {
             $table->engine = "InnoDB";
-            $table->foreignId('message_id')->constrained('messages')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+
+            $table->unsignedInteger('message_id');
+            $table->foreign('message_id')->references('id')->on('messages')->onDelete('cascade');
+  
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+  
             $table->primary(['message_id', 'user_id']);
             $table->timestamp('read_at')->nullable();
             $table->softDeletes();

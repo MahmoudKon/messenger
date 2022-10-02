@@ -14,7 +14,8 @@ class AddLastMessageId extends Migration
     public function up()
     {
         Schema::table('conversations', function (Blueprint $table) {
-            $table->foreignId('last_message_id')->nullable()->constrained('messages')->cascadeOnUpdate()->nullOnDelete();
+            $table->unsignedInteger('last_message_id');
+            $table->foreign('last_message_id')->references('id')->on('messages')->onDelete('cascade');
         });
 
         Schema::table('users', function (Blueprint $table) {
@@ -35,10 +36,6 @@ class AddLastMessageId extends Migration
      */
     public function down()
     {
-        Schema::table('conversations', function (Blueprint $table) {
-            $table->dropConstrainedForeignId('last_message_id');
-        });
-
         Schema::table('users', function (Blueprint $table) {
             if (! Schema::hasColumn('users', 'last_seen')) {
                 $table->dropColumn('last_seen');

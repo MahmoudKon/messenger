@@ -16,8 +16,13 @@ class createConversationUserTable extends Migration
     {
         Schema::create('conversation_user', function (Blueprint $table) {
             $table->engine = "InnoDB";
-            $table->foreignId('conversation_id')->constrained('conversations')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+
+            $table->unsignedInteger('conversation_id');
+            $table->foreign('conversation_id')->references('id')->on('conversations')->onDelete('cascade');
+  
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+  
             $table->enum('role', ['admin', 'member'])->default('member');
             $table->primary(['conversation_id', 'user_id']);
             $table->timestamp('joined_at')->default(DB::raw('CURRENT_TIMESTAMP'));
