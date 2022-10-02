@@ -61,7 +61,7 @@ class ConversationController extends Controller
 
     public function userDetails($id)
     {
-        $user = config('auth.providers.users.model')::fingOrFail($id);
+        $user = config('auth.providers.users.model')::findOrFail($id);
         return view('messenger.includes.show', compact('user'));
     }
 }

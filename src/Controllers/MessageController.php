@@ -18,7 +18,7 @@ class MessageController extends Controller
 
     public function index($id)
     {
-        $user = config('auth.providers.users.model')::fingOrFail($id);
+        $user = config('auth.providers.users.model')::findOrFail($id);
         $conversation = auth()->user()->conversations()->whereHas('users', function($query) use($user) {
                                 $query->where('user_id', $user->id);
                             })
