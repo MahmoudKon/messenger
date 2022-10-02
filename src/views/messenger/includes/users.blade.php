@@ -1,14 +1,15 @@
 @forelse ($users as $user)
-    @php $unread_count = $user->conversations->first()?->unread; @endphp
-    @php $user_unread_count = $user->conversations->first()?->user_unread; @endphp
-    @php $is_seen = $user->isOnline() || $user->getAttributes()['last_seen'] >= $user->conversations->first()?->lastMessage->getAttributes()['created_at']; @endphp
+    @php $first_conversation = $user->conversations->first(); @endphp
+    @php $unread_count = $first_conversation?->unread; @endphp
+    @php $user_unread_count = $first_conversation?->user_unread; @endphp
+    @php $is_seen = $user->isOnline() || $user->getAttributes()['last_seen'] >= $first_conversation?->lastMessage->getAttributes()['created_at']; @endphp
 
     <a href="{{ route('conversation.user.messages', $user) }}" class="card conversation-item border-0 text-reset user-room" data-user-id="{{ $user->id }}">
         <div class="card-body">
             <div class="row gx-5">
                 <div class="col-auto">
                     <div class="avatar {{ $user->isOnline() ? 'avatar-online' : '' }} online-status-{{ $user->id }}">
-                        <img src="{{ asset($user->image) }}" alt="#" class="avatar-img">
+                        <img src="{{ $user->avatar }}" alt="#" class="avatar-img">
                     </div>
                 </div>
 
@@ -16,7 +17,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <h5 class="me-auto mb-0">{{ $user->name }}</h5>
                         <span class="text-muted extra-small ms-2 message-time">
-                            {{ $user->conversations->first()?->lastMessage->created_at }}
+                            {{ $first_conversation?->lastMessage->created_at }}
                         </span>
                     </div>
 
@@ -24,13 +25,13 @@
                         <div class="line-clamp me-auto">
                             <span class="user-typing d-none"> is typing<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span> </span>
                             <span class="last-message">
-                                @if ($user->conversations->first()?->lastMessage)
-                                    {{ $user->conversations->first()->lastMessage->user_id == auth()->id() ? 'You: ' : $user->conversations->first()->lastMessage->user->name.': ' }}
-                                    @if ($user->conversations->first()->lastMessage->type == 'text')
-                                        {{ $user->conversations->first()->lastMessage->message }}
+                                @if ($first_conversation?->lastMessage)
+                                    {{ $first_conversation->lastMessage->user_id == auth()->id() ? 'You: ' : $first_conversation->lastMessage->user->name.': ' }}
+                                    @if ($first_conversation->lastMessage->type == 'text')
+                                        {{ $first_conversation->lastMessage->message }}
                                     @else
                                         @php
-                                            $type = explode('/', $user->conversations->first()->lastMessage->type)[0];
+                                            $type = explode('/', $first_conversation->lastMessage->type)[0];
                                             $type = $type == 'application' || $type == 'text' ? 'Attachment' : $type;
                                         @endphp
                                         Send {{ $type }}

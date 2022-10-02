@@ -7,10 +7,10 @@
 
     <a href="{{ route('user.details', auth()->id()) }}" class="nav-link p-0 mt-lg-2" data-bs-toggle="modal" data-bs-target="#modal-user-profile">
         <div class="avatar avatar-online mx-auto d-none d-xl-block">
-            <img class="avatar-img" src="{{ asset(auth()->user()->avatar) }}" alt="">
+            <img class="avatar-img" src="{{ auth()->user()->avatar }}" alt="">
         </div>
         <div class="avatar avatar-online avatar-xs d-xl-none">
-            <img class="avatar-img" src="{{ asset(auth()->user()->avatar) }}" alt="">
+            <img class="avatar-img" src="{{ auth()->user()->avatar }}" alt="">
         </div>
         <small>{{ auth()->user()->name }}</small>
     </a>
