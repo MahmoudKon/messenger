@@ -8,12 +8,22 @@
 
 # Requirements
 
-- This messenger package requires PHP ^8.0 and laravel ^9.0.
-- Messenger version 7 for PHP < 8.0.
-- Install pusher server and set pusher configuration in your inv file.
-- Install laravel echo from  <a href='https://laravel.com/docs/9.x/broadcasting#pusher-channels'> laravel documentation </a>.
+- This messenger package requires PHP ^8.0 and laravel ^9.0, another version for PHP < 8.0.
+- Install pusher server
+```bash
+    composer require pusher/pusher-php-server
+```
+- set pusher configuration in your env file.
+```php
+    PUSHER_APP_ID=#########
+    PUSHER_APP_KEY=#########
+    PUSHER_APP_SECRET=#########
+```
+- Install laravel echo from  <a href='https://laravel.com/docs/9.x/broadcasting#client-pusher-channels'> laravel documentation </a>.
+```bash
+    npm install --save-dev laravel-echo pusher-js
+```
 - Make enable for client events from your pusher setting.
-
 <img src='https://github.com/MahmoudKon/messenger/blob/master/imgs/enable-client-events.PNG' alt='enable-client-events.PNG'>
 
 ##
@@ -34,7 +44,7 @@ For php < 8
 ```
 
 
-Use this trait in your ``User.php`` model
+1- Use this trait in your ``User.php`` model
 
 ```php
     ...
@@ -47,77 +57,91 @@ Use this trait in your ``User.php`` model
     }
 ```
 
-and run install to create assets && views && migrations files:
+2- run install command to create assets && views && migrations files:
 
 ```php
     php artisan messenger:install
 ```
 
-run migrations:
+3- Then migrations:
 
 ```php
     php artisan migrate
 ```
 
+3-  include `` app.js `` file in the messanger/index.blade.php:
+
+for `` mix ``
+
+```js
+    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+```
+
+for `` vite ``
+
+```php
+    @vite(['resources/js/app.js'])
+```
+
+
+
 ##
 
 # Features
 
+<p>1- Welcome page to list users and conversations</p>
 
 <p>
     <img src="https://github.com/MahmoudKon/messenger/blob/master/imgs/wlecome-page.PNG" alt="wlecome page">
 </p>
 
-<p>Welcome page</p>
-
 #
+
+<p>2- profile for each user</p>
 
 <p>
     <img src="https://github.com/MahmoudKon/messenger/blob/master/imgs/profile.PNG" alt="user profile">
 </p>
 
-<p>profile for each user</p>
-
 #
+
+<p>3- search in users</p>
 
 <p>
     <img src="https://github.com/MahmoudKon/messenger/blob/master/imgs/search.PNG" alt="search">
 </p>
 
-<p>search in users</p>
-
 #
+
+<p>4- send Media or attachment</p>
 
 <p>
     <img src="https://github.com/MahmoudKon/messenger/blob/master/imgs/send-media.PNG" alt="send media">
 </p>
 
-<p>send Media or attachment</p>
-
 #
+
+<p>5- Typeing event</p>
 
 <p>
     <img src="https://github.com/MahmoudKon/messenger/blob/master/imgs/typing.PNG" alt="typing">
 </p>
 
-<p>Typeing event</p>
 
 #
 
-<p>
-    <img src="https://github.com/MahmoudKon/messenger/blob/master/imgs/not-receive-message.PNG" alt="not-receive-message">
-</p>
-
-<p>
-when send message to user and he is offline, the icon will be one check icon.
-when back to online the icon will be double ckeck.
-When the message is read, the color of the icon will change.
-</p>
-
-#
+<p>6- scrolling will start at the first unread message with the count of unread messages displayed.</p>
 
 <p>
     <img src="https://github.com/MahmoudKon/messenger/blob/master/imgs/new-message-count.PNG" alt="new-messagescount">
 </p>
 
-<p>scrolling will start at the first unread message with the count of unread messages displayed.</p>
+#
+7- read icons
+* <p> when send message to user and he is offline, the icon will be one check icon. </p>
+* <p> when back to online the icon will be double ckeck. </p>
+* <p> When the message is read, the color of the icon will change. </p>
+
+<p>
+    <img src="https://github.com/MahmoudKon/messenger/blob/master/imgs/not-receive-message.PNG" alt="not-receive-message">
+</p>
