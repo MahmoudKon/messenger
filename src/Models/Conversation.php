@@ -3,14 +3,11 @@
 namespace Messenger\Chat\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
 class Conversation extends Model
 {
-    use HasFactory;
-
     protected $fillable = ['label', 'type', 'image', 'user_id', 'last_message_id'];
 
     public function user()

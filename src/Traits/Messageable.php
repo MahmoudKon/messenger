@@ -14,7 +14,7 @@ trait Messageable
     
     public function getAvatarAttribute($value)
     {
-        return $this->image ?? 'http://cdn.onlinewebfonts.com/svg/img_568657.png';
+        return $this->image ? asset($this->image) : 'http://cdn.onlinewebfonts.com/svg/img_568657.png';
     }
 
     public function getLastSeenAttribute($value)
