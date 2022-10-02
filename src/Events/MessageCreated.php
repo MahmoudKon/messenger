@@ -38,4 +38,8 @@ class MessageCreated implements ShouldBroadcast
     {
         return new PrivateChannel("new-message.{$this->user_id}");
     }
+
+    public function broadcastAs() {
+        return 'new.message';
+    }
 }

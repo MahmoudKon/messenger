@@ -8,7 +8,7 @@
 
 # Requirements
 
-- This messenger package requires PHP ^8.0 and laravel ^9.0, another version for PHP < 8.0.
+- This messenger package requires PHP ^8.0 and laravel ^9.0, another version (7.0) for PHP < 8.0.
 - Install pusher server
 ```bash
     composer require pusher/pusher-php-server
@@ -63,13 +63,13 @@ For php < 8
     php artisan messenger:install
 ```
 
-3- Then migrations:
+3- run migrations:
 
 ```php
     php artisan migrate
 ```
 
-3-  include `` app.js `` file in the messanger/index.blade.php:
+4-  include `` app.js `` file in the messanger/index.blade.php:
 
 for `` mix ``
 
@@ -113,7 +113,7 @@ for `` vite ``
 
 #
 
-<p>4- send Media or attachment</p>
+<p>4- send Media or attachment and download</p>
 
 <p>
     <img src="https://github.com/MahmoudKon/messenger/blob/master/imgs/send-media.PNG" alt="send media">
@@ -121,7 +121,7 @@ for `` vite ``
 
 #
 
-<p>5- Typeing event</p>
+<p>5- Typing event</p>
 
 <p>
     <img src="https://github.com/MahmoudKon/messenger/blob/master/imgs/typing.PNG" alt="typing">
@@ -140,7 +140,7 @@ for `` vite ``
 7- read icons
 * <p> when send message to user and he is offline, the icon will be one check icon. </p>
 * <p> when back to online the icon will be double ckeck. </p>
-* <p> When the message is read, the color of the icon will change. </p>
+* <p> When the message is read, the color of the icon will change to green color. </p>
 
 <p>
     <img src="https://github.com/MahmoudKon/messenger/blob/master/imgs/not-receive-message.PNG" alt="not-receive-message">
