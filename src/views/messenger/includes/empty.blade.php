@@ -10,4 +10,7 @@
         <p class="text-muted">Pick a person from left menu, <br> and start your conversation.</p>
     </div>
 
+    <div class="dz-preview bg-dark" id="dz-preview-row" data-horizontal-scroll=""></div>
+    <div id="dz-btn"> </div>
+
 </div>
