@@ -8,43 +8,6 @@
 
 # Requirements
 
-- This messenger package requires PHP < 8.0 and laravel < 9.0.
-- Install pusher server and set pusher configuration in your inv file.
-- Install laravel echo from  <a href='https://laravel.com/docs/8.x/broadcasting#pusher-channels'> laravel documentation </a>.
-- Make enable for client events from your pusher setting.
-
-<img src='https://github.com/MahmoudKon/messenger/blob/master/imgs/enable-client-events.PNG' alt='enable-client-events.PNG'>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# <p align="center">Laravel Messenger</p>
-
-<p align="center">
-    <img src="https://github.com/MahmoudKon/messenger/blob/master/src/assets/messenger/images/icon.png" alt="Laravel Messenger" width="300px">
-</p>
-
-##
-
-# Requirements
-
 - This messenger package requires PHP < 8.0.
 - Install pusher server
 ```bash
@@ -97,12 +60,6 @@ You can install this package via composer using:
 ```php
     php artisan migrate
 ```
-
-3-  include `` app.js `` file in the messanger/index.blade.php:
-```js
-    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
-```
-
 ##
 
 # Features
