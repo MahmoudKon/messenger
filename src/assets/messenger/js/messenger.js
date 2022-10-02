@@ -137,7 +137,7 @@ $(function() {
                 auth_id: AUTH_USER_ID,
                 user_id: $('input[name="user_id"]').val()
             });
-        }, 5500);
+        }, 500);
     });
 
 
