@@ -36,7 +36,7 @@
         <!-- Scripts -->
         <script>
             const AUTH_USER_ID = {{ auth()->id() }};
-            audio = new Audio(`{{ asset('assets/messenger/audios/success.mp3') }}`);
+            audio = new Audio(`{{ env('APP_URL') }}/public/assets/messenger/audios/success.mp3`);
         </script>
         <script type="text/javascript" src="{{ env('APP_URL') }}/public/assets/messenger/js/jquery-3.6.1.min.js"></script>
         <script type="text/javascript" src="{{ env('APP_URL') }}/public/assets/messenger/js/vendor.js"></script>
