@@ -3,7 +3,6 @@
 namespace Messenger\Chat\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
-use App\Models\User;
 
 class MessageUser extends Pivot
 {
@@ -20,6 +19,6 @@ class MessageUser extends Pivot
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(config('auth.providers.users.model'));
     }
 }
