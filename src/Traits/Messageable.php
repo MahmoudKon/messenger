@@ -9,12 +9,12 @@ use Messenger\Chat\Models\Message;
 use Messenger\Chat\Models\MessageUser;
 
 trait Messageable
-{
-    protected $append = ['avatar'];
-    
-    public function getAvatarAttribute($value)
+{    
+    public function getAvatarAttribute()
     {
-        return $this->image ? asset($this->image) : 'http://cdn.onlinewebfonts.com/svg/img_568657.png';
+        return $this->config('messenger.image_column')
+                ? config('messenger.append_url').$this->config('messenger.image_column')
+                : config('messenger.default_image');
     }
 
     public function getLastSeenAttribute($value)

@@ -10,12 +10,12 @@ class Conversation extends Model
 
     public function user()
     {
-        return $this->belongsTo(config('auth.providers.users.model'))->select('id', 'name', 'email', 'image')->withDefault(['name' => '', 'email' => '', 'image' => '']);
+        return $this->belongsTo(config('messenger.model'))->select('id', 'name', 'email', 'image')->withDefault(['name' => '', 'email' => '', 'image' => '']);
     }
 
     public function users()
     {
-        return $this->belongsToMany(config('auth.providers.users.model'), 'conversation_user')->withPivot(['joined_at', 'role']);
+        return $this->belongsToMany(config('messenger.model'), 'conversation_user')->withPivot(['joined_at', 'role']);
     }
 
     public function messages()
