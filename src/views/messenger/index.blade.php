@@ -35,9 +35,12 @@
 
         <!-- Scripts -->
         <script>
-            const AUTH_USER_ID = {{ auth()->id() }};
-            audio = new Audio(`{{ env('APP_URL') }}/public/assets/messenger/audios/success.mp3`);
-            Pusher.logToConsole = "{{ config('messenger.pusher_log') }}";
+            const AUTH_USER_ID    = {{ auth()->id() }};
+            const audio           = new Audio(`{{ env('APP_URL') }}/public/assets/messenger/audios/success.mp3`);
+            const IMG_COLUMN_NAME = "{{ config('messenger.image_column') }}";
+            const APPEND_URL      = "{{ config('messenger.append_url') }}";
+            const DEFAULT_IMG     = "{{ config('messenger.default_image') }}";
+            Pusher.logToConsole   = "{{ config('messenger.pusher_log') }}";
         </script>
         <script type="text/javascript" src="{{ env('APP_URL') }}/public/assets/messenger/js/jquery-3.6.1.min.js"></script>
         <script type="text/javascript" src="{{ env('APP_URL') }}/public/assets/messenger/js/vendor.js"></script>

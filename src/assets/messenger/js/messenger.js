@@ -320,7 +320,8 @@ $(function() {
     }
 
     function messageTemplate(message, new_class = '') {
-        let img = message.user.image ? '/'+message.user.image : message.user.avatar;
+        let img = message.user[IMG_COLUMN_NAME] ? APPEND_URL+message.user[IMG_COLUMN_NAME] : DEFAULT_IMG;
+        
         return `<div class="message ${new_class}">
                     <a href="${window.location.href}/user/${message.user_id}/details" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive">
                         <img class="avatar-img" src="${img}" alt="" width='100%'>
