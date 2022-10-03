@@ -11,12 +11,12 @@ use Messenger\Chat\Models\MessageUser;
 
 trait Messageable
 {
-    protected $append = ['avatar'];
-    
     protected function avatar(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $this->image ? asset($this->image) : 'http://cdn.onlinewebfonts.com/svg/img_568657.png',
+            get: fn ($value) => $this->config('messenger.image_column')
+                                        ? config('messenger.append_url').$this->config('messenger.image_column')
+                                        : config('messenger.default_image'),
         );
     }
     

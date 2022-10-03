@@ -32,7 +32,7 @@ class Message extends Model
 
     public function user()
     {
-        return $this->belongsTo(config('auth.providers.users.model'))->select('id', 'name', 'email', 'image')->withDefault(['name' => 'User', 'email' => 'User', 'image' => '']);
+        return $this->belongsTo(config('messenger.model'))->select('id', 'name', 'email', 'image')->withDefault(['name' => 'User', 'email' => 'User', 'image' => '']);
     }
 
     public function conversation()
@@ -42,7 +42,7 @@ class Message extends Model
 
     public function users()
     {
-        return $this->belongsToMany(config('auth.providers.users.model'), 'message_user')->withPivot(['read_at', 'deleted_at']);
+        return $this->belongsToMany(config('messenger.model'), 'message_user')->withPivot(['read_at', 'deleted_at']);
     }
 
     public function scopeUnreadMessages($query)

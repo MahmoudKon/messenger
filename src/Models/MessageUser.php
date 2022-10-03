@@ -22,6 +22,6 @@ class MessageUser extends Pivot
 
     public function user()
     {
-        return $this->belongsTo(config('auth.providers.users.model'));
+        return $this->belongsTo(config('messenger.model'));
     }
 }

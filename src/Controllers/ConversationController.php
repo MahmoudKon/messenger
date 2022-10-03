@@ -17,7 +17,7 @@ class ConversationController extends Controller
 
     public function conversations()
     {
-        $users = config('auth.providers.users.model')::exceptAuth()->search()
+        $users = config('messenger.model')::exceptAuth()->search()
                         ->hasConversationWithAuth()
                         ->with([
                             'conversations' => function($query) { $query->onlyWithAuth(); }
@@ -39,7 +39,7 @@ class ConversationController extends Controller
 
     public function users()
     {
-        $users = config('auth.providers.users.model')::exceptAuth()->search()
+        $users = config('messenger.model')::exceptAuth()->search()
                         ->with([
                             'conversations' => function($query) { $query->onlyWithAuth(); }
                         ])->orderBy('last_seen', 'DESC')->paginate(8);
@@ -55,13 +55,13 @@ class ConversationController extends Controller
 
     public function updateLastSeen()
     {
-        config('auth.providers.users.model')::find(request('user_id'))->update(['last_seen' => now()]);
+        config('messenger.model')::find(request('user_id'))->update(['last_seen' => now()]);
         return 'updated';
     }
 
     public function userDetails($id)
     {
-        $user = config('auth.providers.users.model')::findOrFail($id);
+        $user = config('messenger.model')::findOrFail($id);
         return view('messenger.includes.show', compact('user'));
     }
 }

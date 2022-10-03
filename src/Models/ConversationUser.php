@@ -19,6 +19,6 @@ class ConversationUser extends Model
 
     public function user()
     {
-        return $this->belongsTo(config('auth.providers.users.model'));
+        return $this->belongsTo(config('messenger.model'));
     }
 }
