@@ -14,7 +14,7 @@ trait Messageable
     {
         $column = config('messenger.image_column');
         return $this->$column
-                ? config('messenger.append_url').$this->$column
+                ? config('messenger.append_url').'/'.$this->$column
                 : config('messenger.default_image');
     }
 
