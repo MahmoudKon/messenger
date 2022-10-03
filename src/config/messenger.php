@@ -8,7 +8,7 @@
         'image_column'  => 'image',
 
         // The url full path to append
-        'append_url'    => url('/'),
+        'append_url'    => env('APP_URL').'/'.env('APP_NAME').'/public',
 
         // Set default image if user not have image
         'default_image' => 'http://cdn.onlinewebfonts.com/svg/img_568657.png',

@@ -8,13 +8,13 @@
         <title>Messenger</title>
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="{{ config('append_url') }}/public/assets/messenger/images/icon.png" type="image/x-icon">
+        <link rel="shortcut icon" href="{{ config('messenger.append_url') }}/assets/messenger/images/icon.png" type="image/x-icon">
 
         <!-- Template CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="{{ config('append_url') }}/public/assets/messenger/css/template.bundle.dark.css">
-        <link rel="stylesheet" href="{{ config('append_url') }}/public/assets/messenger/css/template.dark.bundle.css" media="(prefers-color-scheme: dark)">
-        <link rel="stylesheet" href="{{ config('append_url') }}/public/assets/messenger/css/style.css">
+        <link rel="stylesheet" href="{{ config('messenger.append_url') }}/assets/messenger/css/template.bundle.dark.css">
+        <link rel="stylesheet" href="{{ config('messenger.append_url') }}/assets/messenger/css/template.dark.bundle.css" media="(prefers-color-scheme: dark)">
+        <link rel="stylesheet" href="{{ config('messenger.append_url') }}/assets/messenger/css/style.css">
 
     <body>
         <!-- Layout -->
@@ -35,17 +35,17 @@
         <!-- Scripts -->
         <script>
             const AUTH_USER_ID    = {{ auth()->id() }};
-            const audio           = new Audio(`{{ config('append_url') }}/public/assets/messenger/audios/success.mp3`);
+            const audio           = new Audio(`{{ config('messenger.append_url') }}/assets/messenger/audios/success.mp3`);
             const IMG_COLUMN_NAME = "{{ config('messenger.image_column') }}";
             const APPEND_URL      = "{{ config('messenger.append_url') }}";
             const DEFAULT_IMG     = "{{ config('messenger.default_image') }}";
         </script>
-        <script type="text/javascript" src="{{ config('append_url') }}/public/js/app.js"></script>
-        <script type="text/javascript" src="{{ config('append_url') }}/public/assets/messenger/js/jquery-3.6.1.min.js"></script>
-        <script type="text/javascript" src="{{ config('append_url') }}/public/assets/messenger/js/vendor.js"></script>
-        <script type="text/javascript" src="{{ config('append_url') }}/public/assets/messenger/js/template.js"></script>
-        <script type="text/javascript" src="{{ config('append_url') }}/public/assets/messenger/js/moment.js"></script>
-        <script type="text/javascript" src="{{ config('append_url') }}/public/assets/messenger/js/messenger.js"></script>
+        <script type="text/javascript" src="{{ config('messenger.append_url') }}/js/app.js"></script>
+        <script type="text/javascript" src="{{ config('messenger.append_url') }}/assets/messenger/js/jquery-3.6.1.min.js"></script>
+        <script type="text/javascript" src="{{ config('messenger.append_url') }}/assets/messenger/js/vendor.js"></script>
+        <script type="text/javascript" src="{{ config('messenger.append_url') }}/assets/messenger/js/template.js"></script>
+        <script type="text/javascript" src="{{ config('messenger.append_url') }}/assets/messenger/js/moment.js"></script>
+        <script type="text/javascript" src="{{ config('messenger.append_url') }}/assets/messenger/js/messenger.js"></script>
         <script> Pusher.logToConsole   = "{{ config('messenger.pusher_log') }}"; </script>
     </body>
 </html>
