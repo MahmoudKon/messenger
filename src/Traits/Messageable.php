@@ -13,9 +13,10 @@ trait Messageable
 {
     protected function avatar(): Attribute
     {
+        $column = config('messenger.image_column');
         return Attribute::make(
-            get: fn ($value) => $this->config('messenger.image_column')
-                                        ? config('messenger.append_url').$this->config('messenger.image_column')
+            get: fn ($value) => $this->$column
+                                        ? config('messenger.append_url').$this->$column
                                         : config('messenger.default_image'),
         );
     }
