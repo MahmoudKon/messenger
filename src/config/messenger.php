@@ -12,4 +12,6 @@
 
         // Set default image if user not have image
         'default_image' => 'http://cdn.onlinewebfonts.com/svg/img_568657.png',
+        
+        'pusher_log' => true,
     ];
