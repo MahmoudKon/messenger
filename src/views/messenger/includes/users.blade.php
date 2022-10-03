@@ -22,7 +22,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <h5 class="me-auto mb-0">{{ $user->name }}</h5>
                         <span class="text-muted extra-small ms-2 message-time">
-                            {{ $$first_conversation->lastMessage->created_at ?? '' }}
+                            {{ $first_conversation->lastMessage->created_at ?? '' }}
                         </span>
                     </div>
 

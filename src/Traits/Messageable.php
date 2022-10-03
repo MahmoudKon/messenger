@@ -12,8 +12,9 @@ trait Messageable
 {    
     public function getAvatarAttribute()
     {
-        return $this->config('messenger.image_column')
-                ? config('messenger.append_url').$this->config('messenger.image_column')
+        $column = config('messenger.image_column');
+        return $this->$column
+                ? config('messenger.append_url').$this->$column
                 : config('messenger.default_image');
     }
 
