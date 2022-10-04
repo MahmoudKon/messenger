@@ -16,11 +16,11 @@ trait Messageable
         $column = config('messenger.image_column');
         return Attribute::make(
             get: fn ($value) => $this->$column
-                                        ? config('messenger.append_url').'/'.$this->$column
+                                        ? config('messenger.img_url').'/'.$this->$column
                                         : config('messenger.default_image'),
         );
     }
-    
+
     protected function lastSeen(): Attribute
     {
         return Attribute::make(

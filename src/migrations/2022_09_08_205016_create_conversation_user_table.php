@@ -21,6 +21,7 @@ return new class extends Migration
             $table->enum('role', ['admin', 'member'])->default('member');
             $table->primary(['conversation_id', 'user_id']);
             $table->timestamp('joined_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->softDeletes();
         });
     }
 

@@ -83,6 +83,12 @@ for `` vite ``
     @vite(['resources/js/app.js'])
 ```
 
+##
+
+# Configurations
+
+
+
 
 
 ##

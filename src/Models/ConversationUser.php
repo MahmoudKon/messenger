@@ -3,9 +3,12 @@
 namespace Messenger\Chat\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ConversationUser extends Model
 {
+    use SoftDeletes;
+
     public $table = 'conversation_user';
 
     public $timestamps = false;

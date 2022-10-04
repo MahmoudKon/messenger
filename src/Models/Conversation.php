@@ -34,7 +34,7 @@ class Conversation extends Model
     public function scopeOnlyWithAuth($query)
     {
         return $query->whereHas('users', function($query) {
-                    $query->where('user_id', auth()->id());
+                    $query->where('user_id', auth()->id())->whereNull('deleted_at');
                 })->withCount([
                         'messages as unread' => function($query) {
                             $query->whereHas('users', function($query) {

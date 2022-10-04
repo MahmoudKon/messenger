@@ -14,7 +14,7 @@ class Message extends Model
 
     protected $fillable = ['message', 'type', 'conversation_id', 'user_id'];
 
-    protected $with = ['user'];
+    protected $with = ['user', 'users'];
 
     protected function createdAt(): Attribute
     {
@@ -42,7 +42,7 @@ class Message extends Model
 
     public function users()
     {
-        return $this->belongsToMany(config('messenger.model'), 'message_user')->withPivot(['read_at', 'deleted_at']);
+        return $this->belongsToMany(config('messenger.model'), 'message_user')->select('id')->withPivot(['read_at', 'deleted_at']);
     }
 
     public function scopeUnreadMessages($query)
