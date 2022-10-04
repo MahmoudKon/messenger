@@ -3,9 +3,12 @@
 namespace Messenger\Chat\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MessageUser extends Pivot
 {
+    use SoftDeletes;
+
     public $table = 'message_user';
 
     public $timestamps = false;

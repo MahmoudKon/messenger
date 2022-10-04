@@ -4,9 +4,12 @@ namespace Messenger\Chat\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Message extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = ['message', 'type', 'conversation_id', 'user_id'];
 
     protected $with = ['user'];
@@ -23,7 +26,7 @@ class Message extends Model
 
     public function user()
     {
-        return $this->belongsTo(config('messenger.model'))->select('id', 'name', 'email', 'image')->withDefault(['name' => 'User', 'email' => 'User', 'image' => '']);
+        return $this->belongsTo(config('messenger.model'))->select('id', 'name', 'email', config('messenger.image_column'))->withDefault(['name' => 'User', 'email' => 'User', config('messenger.image_column') => null]);
     }
 
     public function conversation()

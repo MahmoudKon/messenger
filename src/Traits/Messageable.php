@@ -13,8 +13,9 @@ trait Messageable
     public function getAvatarAttribute()
     {
         $column = config('messenger.image_column');
+        $path = trim(config('messenger.img_url'), '/');
         return $this->$column
-                ? config('messenger.append_url').'/'.$this->$column
+                ? "$path/$this->$column"
                 : config('messenger.default_image');
     }
 
@@ -58,7 +59,7 @@ trait Messageable
     {
         return $query->whereHas('conversations', function($query) {
                             $query->whereHas('users', function($query) {
-                                $query->where('user_id', auth()->id());
+                                $query->where('user_id', auth()->id())->whereNull('deleted_at');
                             });
                         });
     }

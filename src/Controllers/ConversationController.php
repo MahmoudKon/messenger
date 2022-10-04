@@ -4,6 +4,8 @@ namespace Messenger\Chat\Controllers;
 
 use App\Http\Controllers\Controller;
 use Messenger\Chat\Traits\UploadFile;
+use Messenger\Chat\Models\ConversationUser;
+use Messenger\Chat\Models\MessageUser;
 
 class ConversationController extends Controller
 {
@@ -63,5 +65,14 @@ class ConversationController extends Controller
     {
         $user = config('messenger.model')::findOrFail($id);
         return view('messenger.includes.show', compact('user'));
+    }
+    
+    public function destroy($conversation_id)
+    {
+        ConversationUser::where(['conversation_id' => $conversation_id, 'user_id' => auth()->id()])->delete();
+        MessageUser::where('user_id', auth()->id())->whereHas('message', function($query) use($conversation_id) {
+            $query->where('conversation_id', $conversation_id);
+        })->forceDelete();
+        return back();
     }
 }

@@ -10,7 +10,7 @@ class Conversation extends Model
 
     public function user()
     {
-        return $this->belongsTo(config('messenger.model'))->select('id', 'name', 'email', 'image')->withDefault(['name' => '', 'email' => '', 'image' => '']);
+        return $this->belongsTo(config('messenger.model'))->select('id', 'name', 'email', config('messenger.image_column'))->withDefault(['name' => '', 'email' => '', config('messenger.image_column') => null]);
     }
 
     public function users()
@@ -31,7 +31,7 @@ class Conversation extends Model
     public function scopeOnlyWithAuth($query)
     {
         return $query->whereHas('users', function($query) {
-                    $query->where('user_id', auth()->id());
+                    $query->where('user_id', auth()->id())->whereNull('deleted_at');
                 })->withCount([
                         'messages as unread' => function($query) {
                             $query->whereHas('users', function($query) {

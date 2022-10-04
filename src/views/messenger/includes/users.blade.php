@@ -1,8 +1,16 @@
 @forelse ($users as $user)
-    @php $first_conversation = $user->conversations->first(); @endphp
-    @php $unread_count = $first_conversation ? $first_conversation->unread : ''; @endphp
-    @php $user_unread_count = $first_conversation ? $first_conversation->user_unread : ''; @endphp
     @php
+        $first_conversation = $user->conversations->first(); 
+
+        if ($first_conversation) {
+            $unread_count       = $first_conversation->unread; 
+            $user_unread_count  = $first_conversation->user_unread; 
+            $lastMessage        = $first_conversation->lastMessage; 
+        } else {
+            $unread_count       = 0;
+            $user_unread_count  = 0;
+            $lastMessage        = null;
+        }
         $is_seen = false;
         if ($user->isOnline() || $first_conversation && $user->getAttributes()['last_seen'] >= $first_conversation->lastMessage->getAttributes()['created_at']) {
             $is_seen = true;
@@ -22,7 +30,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <h5 class="me-auto mb-0">{{ $user->name }}</h5>
                         <span class="text-muted extra-small ms-2 message-time">
-                            {{ $first_conversation->lastMessage->created_at ?? '' }}
+                            {{ $lastMessage->created_at ?? '' }}
                         </span>
                     </div>
 
@@ -30,16 +38,22 @@
                         <div class="line-clamp me-auto">
                             <span class="user-typing d-none"> is typing<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span> </span>
                             <span class="last-message">
-                                @if ($first_conversation && $first_conversation->lastMessage)
-                                    {{ $first_conversation->lastMessage->user_id == auth()->id() ? 'You: ' : $first_conversation->lastMessage->user->name.': ' }}
-                                    @if ($first_conversation->lastMessage->type == 'text')
-                                        {{ $first_conversation->lastMessage->message }}
+                                @if ($lastMessage)
+                                    @php $user_id = $lastMessage->users->pluck('pivot.deleted_at', 'pivot.user_id'); @endphp
+                                    @if (isset($user_id[auth()->id()]) && $user_id[auth()->id()])
+                                        <span class="text-muted">Deleted Message</span>
                                     @else
-                                        @php
-                                            $type = explode('/', $first_conversation->lastMessage->type)[0];
-                                            $type = $type == 'application' || $type == 'text' ? 'Attachment' : $type;
-                                        @endphp
-                                        Send {{ $type }}
+                                        {{ $lastMessage->user_id == auth()->id() ? 'You: ' : $lastMessage->user->name.': ' }}
+                                        @if ($lastMessage->type == 'text')
+                                            {{ $lastMessage->message }}
+                                        @else
+                                            @php
+                                                $type = explode('/', $lastMessage->type)[0];
+                                                $type = $type == 'application' || $type == 'text' ? 'Attachment' : $type;
+                                            @endphp
+                                            Send {{ $type }}
+                                        @endif
+
                                     @endif
                                 @endif
                             </span>
