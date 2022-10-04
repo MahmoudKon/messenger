@@ -40,7 +40,7 @@
             const audio           = new Audio(`{{ asset('/') }}assets/messenger/audios/success.mp3`);
             const IMG_COLUMN_NAME = "{{ asset('/') }}";
             const APPEND_URL      = "{{ asset('/') }}";
-            const DEFAULT_IMG     = "{{ asset('/') }}";
+            const DEFAULT_IMG     = "{{ config('messenger.default_image') }}";
             Pusher.logToConsole   = "{{ asset('/') }}";
         </script>
         <script type="text/javascript" src="{{ asset('/') }}assets/messenger/js/jquery-3.6.1.min.js"></script>
