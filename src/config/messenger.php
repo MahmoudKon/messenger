@@ -13,7 +13,7 @@ return [
     //-----------
     // if image return only name like   =>  avatar.png
     // then this key will be   [asset helper function]  =>  http://localhost:8000/uploads/users/
-    'img_url'    => env('APP_URL').'/public',
+    'img_url'    => env('APP_URL'),
 
     // Set default image if user not have image  [full link]
     'default_image' => 'http://cdn.onlinewebfonts.com/svg/img_568657.png',

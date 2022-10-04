@@ -85,11 +85,9 @@ for `` vite ``
 
 ##
 
-# Configurations
+# Note
 
-
-
-
+<p>please check configuration file if you have problem with display image</p>
 
 ##
 
