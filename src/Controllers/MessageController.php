@@ -143,7 +143,7 @@ class MessageController extends Controller
                     })->update(['read_at' => now()]);
     }
 
-    protected function delete($message_id, $user_id = null)
+    public function delete($message_id, $user_id = null)
     {
         $query = MessageUser::where('message_id', $message_id);
 
