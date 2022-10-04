@@ -13,7 +13,7 @@ class Conversation extends Model
 
     public function user()
     {
-        return $this->belongsTo(config('messenger.model'))->select('id', 'name', 'email', 'image')->withDefault(['name' => '', 'email' => '', 'image' => '']);
+        return $this->belongsTo(config('messenger.model'))->select('id', 'name', 'email', config('messenger.image_column'))->withDefault(['name' => 'User', 'email' => 'User', config('messenger.image_column') => null]);
     }
 
     public function users()

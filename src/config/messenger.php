@@ -19,5 +19,5 @@ return [
     'default_image' => 'http://cdn.onlinewebfonts.com/svg/img_568657.png',
 
     // To enable or disable the pusher logs in browser console
-    'pusher_log' => true,
+    'pusher_log' => false,
 ];

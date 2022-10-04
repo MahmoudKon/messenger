@@ -233,6 +233,9 @@ $(function() {
                             .listenForWhisper('load-message', (e) => {
                                 if (AUTH_USER_ID != e.auth_id) return;
                                 changeReadMessageIcon(e.user_id, 'receive');
+                            })
+                            .listenForWhisper('remove-image', (e) => {
+                                $('body').find(`[data-delete-message-id="${e.message_id}"]`).closest('.message-content').addClass('text-muted').text('Deleted Message');
                             });
 
 
@@ -321,7 +324,34 @@ $(function() {
 
     function messageTemplate(message, new_class = '') {
         let img = message.user[IMG_COLUMN_NAME] ? APPEND_URL+'/'+message.user[IMG_COLUMN_NAME] : DEFAULT_IMG;
-        
+        let users = [];
+
+        if (message.users) {
+            message.users.forEach(user => {
+                users[user.id] = user.pivot.deleted_at;
+            });
+
+
+            if (users[AUTH_USER_ID] !== null) {
+                return `<div class="message ${new_class}">
+                            <a href="${window.location.href}/user/${message.user_id}/details" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive">
+                                <img class="avatar-img" src="${img}" alt="" width='100%'>
+                            </a>
+
+                            <div class="message-inner">
+                                <div class='layout-download d-none'></div>
+                                <div class="message-body">
+                                    <div class="message-content text-muted">Deleted Message</div>
+
+                                    <div class="message-footer">
+                                        <span class="extra-small text-muted">${message.created_at}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+            }
+        }
+
         return `<div class="message ${new_class}">
                     <a href="${window.location.href}/user/${message.user_id}/details" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive">
                         <img class="avatar-img" src="${img}" alt="" width='100%'>
@@ -334,6 +364,8 @@ $(function() {
                                 <div class="${message.type == 'text' ? 'message-text' : ''}">
                                     ${buildFile (message.type, message.message)}
                                 </div>
+                                <span class='d-none btn btn-danger btn-sm' data-delete-message-id="${message.id}"> <i class='fa fa-trash'></i> Delete </span>
+                                <span class='d-none btn btn-danger btn-sm remove-from-all' data-delete-message-id="${message.id}"> <i class='fa fa-trash'></i> Delete From All</span>
                             </div>
                         </div>
 
@@ -484,5 +516,43 @@ $(function() {
         } else if(status == 'send') {
             $(`[data-user-id="${user_id}"]`).find('.send-message-icon').removeClass('d-none');
         }
+    }
+
+
+
+    $('body').on('mouseover', '.message', function() {
+        $(this).find('[data-delete-message-id]').removeClass('d-none');
+    });
+
+    $('body').on('mouseleave', '.message', function() {
+        $(this).find('[data-delete-message-id]').addClass('d-none');
+    });
+
+    $.ajaxSetup({
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+    }); // TO SEND THE CSRF TOKEN WITH AJAX REQUEST
+
+    $('body').on('click', '[data-delete-message-id]', function() {
+        let btn = $(this);
+        let url = `message/${btn.data('delete-message-id')}/delete/${AUTH_USER_ID}`;
+
+        if (btn.hasClass('remove-from-all')) {
+            url = `message/${btn.data('delete-message-id')}/delete`;
+            chatChannel.whisper('remove-image', {
+                            message_id: btn.data('delete-message-id'),
+                        });
+        }
+
+        deleteMessage(url, btn);
+    });
+
+    function deleteMessage (url, btn) {
+        $.ajax({
+            url: window.location.href+`/${url}`,
+            type: 'POST',
+            success: function(response, textStatus, jqXHR) {
+                btn.closest('.message-content').addClass('text-muted').text('Deleted Message');
+            }
+        });
     }
 });
