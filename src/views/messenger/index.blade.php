@@ -38,10 +38,10 @@
         <script type="text/javascript">
             const AUTH_USER_ID    = {{ auth()->id() }};
             const audio           = new Audio(`{{ asset('/') }}assets/messenger/audios/success.mp3`);
-            const IMG_COLUMN_NAME = "{{ asset('/') }}";
-            const APPEND_URL      = "{{ asset('/') }}";
+            const IMG_COLUMN_NAME = "{{ config('messenger.image_column') }}";
+            const APPEND_URL      = "{{ config('messenger.img_url') }}";
             const DEFAULT_IMG     = "{{ config('messenger.default_image') }}";
-            Pusher.logToConsole   = "{{ asset('/') }}";
+            Pusher.logToConsole   = "{{ config('messenger.pusher_log') }}";
         </script>
         <script type="text/javascript" src="{{ asset('/') }}assets/messenger/js/jquery-3.6.1.min.js"></script>
         <script type="text/javascript" src="{{ asset('/') }}assets/messenger/js/vendor.js"></script>
