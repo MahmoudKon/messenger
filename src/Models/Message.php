@@ -12,7 +12,7 @@ class Message extends Model
 
     protected $fillable = ['message', 'type', 'conversation_id', 'user_id'];
 
-    protected $with = ['user'];
+    protected $with = ['user', 'users'];
 
     public function getCreatedAtAttribute($value)
     {
