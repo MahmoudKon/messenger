@@ -15,7 +15,7 @@ trait Messageable
         $column = config('messenger.image_column');
         $path = trim(config('messenger.img_url'), '/');
         return $this->$column
-                ? "$path/$this->$column"
+                ? "$path/{$this->$column}"
                 : config('messenger.default_image');
     }
 
