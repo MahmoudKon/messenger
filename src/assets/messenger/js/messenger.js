@@ -235,7 +235,7 @@ $(function() {
                                 changeReadMessageIcon(e.user_id, 'receive');
                             })
                             .listenForWhisper('remove-image', (e) => {
-                                $('body').find(`[data-delete-message-id="${e.message_id}"]`).closest('.message-content').addClass('text-muted').text('Deleted Message');
+                                $('body').find(`[data-delete-message-id="${e.message_id}"]`).closest('.message-content').addClass('text-muted').text('This messages wass deleted');
                             });
 
 
@@ -341,7 +341,7 @@ $(function() {
                             <div class="message-inner">
                                 <div class='layout-download d-none'></div>
                                 <div class="message-body">
-                                    <div class="message-content text-muted">Deleted Message</div>
+                                    <div class="message-content text-muted">This messages wass deleted</div>
 
                                     <div class="message-footer">
                                         <span class="extra-small text-muted">${message.created_at}</span>
@@ -364,8 +364,13 @@ $(function() {
                                 <div class="${message.type == 'text' ? 'message-text' : ''}">
                                     ${buildFile (message.type, message.message)}
                                 </div>
-                                <span class='d-none btn btn-danger btn-sm' data-delete-message-id="${message.id}"> <i class='fa fa-trash'></i> Delete </span>
-                                <span class='d-none btn btn-danger btn-sm remove-from-all' data-delete-message-id="${message.id}"> <i class='fa fa-trash'></i> Delete From All</span>
+                                <span class='d-none btn btn-secondary btn-sm' data-delete-message-id="${message.id}"> <i class='fa fa-trash'></i> </span>
+                                ${
+                                    message.user_id == AUTH_USER_ID
+                                        ? `<span class='d-none btn btn-danger btn-sm remove-from-all' data-delete-message-id="${message.id}"> <i class='fa fa-trash'></i> Delete From All</span>`
+                                        : ''
+                                }
+
                             </div>
                         </div>
 
@@ -534,25 +539,24 @@ $(function() {
 
     $('body').on('click', '[data-delete-message-id]', function() {
         let btn = $(this);
-        let url = `message/${btn.data('delete-message-id')}/delete/${AUTH_USER_ID}`;
+        let url = `message/${btn.data('delete-message-id')}/delete`;
 
-        if (btn.hasClass('remove-from-all')) {
-            url = `message/${btn.data('delete-message-id')}/delete`;
-            chatChannel.whisper('remove-image', {
-                            message_id: btn.data('delete-message-id'),
-                        });
-        }
+        if (!btn.hasClass('remove-from-all')) url += `/${AUTH_USER_ID}`;
 
-        deleteMessage(url, btn);
-    });
-
-    function deleteMessage (url, btn) {
         $.ajax({
             url: window.location.href+`/${url}`,
             type: 'POST',
             success: function(response, textStatus, jqXHR) {
-                btn.closest('.message-content').addClass('text-muted').text('Deleted Message');
+                if (! btn.hasClass('remove-from-all')) {
+                    btn.closest('.message ').remove();
+                    return ;
+                }
+
+                btn.closest('.message-content').addClass('text-muted').text('This messages wass deleted');
+                chatChannel.whisper('remove-image', {
+                    message_id: btn.data('delete-message-id'),
+                });
             }
         });
-    }
+    });
 });

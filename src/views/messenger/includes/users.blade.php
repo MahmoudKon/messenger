@@ -3,7 +3,7 @@
     @php $unread_count = $first_conversation?->unread; @endphp
     @php $user_unread_count = $first_conversation?->user_unread; @endphp
     @php $lastMessage = $first_conversation?->lastMessage; @endphp
-    @php $is_seen = $user->isOnline() || count($lastMessage->getAttributes()) && ($user->getAttributes()['last_seen'] >= $lastMessage->getAttributes()['created_at']); @endphp
+    @php $is_seen = $user->isOnline() || $lastMessage && count($lastMessage->getAttributes()) && ($user->getAttributes()['last_seen'] >= $lastMessage->getAttributes()['created_at']); @endphp
 
     <a href="{{ route('conversation.user.messages', $user) }}" class="card conversation-item border-0 text-reset user-room" data-user-id="{{ $user->id }}">
         <div class="card-body">
@@ -29,7 +29,7 @@
                                 @if ($lastMessage)
                                     @php $user_id = $lastMessage->users->pluck('pivot.deleted_at', 'pivot.user_id'); @endphp
                                     @if (isset($user_id[auth()->id()]) && $user_id[auth()->id()])
-                                        <span class="text-muted">Deleted Message</span>
+                                        <span class="text-muted">This message was deleted</span>
                                     @else
                                         {{ $first_conversation->lastMessage->user_id == auth()->id() ? 'You: ' : $first_conversation->lastMessage->user->name.': ' }}
                                         @if ($first_conversation->lastMessage->type == 'text')
