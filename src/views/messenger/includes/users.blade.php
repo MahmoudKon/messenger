@@ -47,7 +47,7 @@
                             </span>
                         </div>
 
-                        <i class="fa-solid fa-check message-status-icons {{ $is_seen ? 'd-none' : '' }} send-message-icon"></i>
+                        <i class="fa-solid fa-check message-status-icons {{ $is_seen || ! $first_conversation ? 'd-none' : '' }} send-message-icon"></i>
                         <i class="fa-solid fa-check-double message-status-icons {{ ($user_unread_count !== $unread_count) && $is_seen && $user->conversations->count() ? '' : 'd-none' }} receive-message-icon"></i>
                         <i class="fa-solid fa-check-double message-status-icons text-success {{ $user_unread_count == 0 && $is_seen && $unread_count == 0 && $user->conversations->count() ? '' : 'd-none' }} read-message-icon"></i>
                         <div class="badge badge-circle bg-primary ms-5 unread-messages unread-messages-user-{{ $user->id }} {{ $unread_count ? '' : 'd-none' }}"> {{ is_int($unread_count) ? $unread_count : 0 }} </div>
