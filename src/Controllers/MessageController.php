@@ -139,11 +139,14 @@ class MessageController extends Controller
                     })->update(['read_at' => now()]);
     }
 
-    protected function delete($message_id, $user_id = null)
+    public function delete($message_id, $user_id = null)
     {
-        MessageUser::where('message_id', $message_id)->when($user_id, function($query) use($user_id) {
-            $query->where('user_id', $user_id);
-        })->delete();
+        $query = MessageUser::where('message_id', $message_id);
+
+        $user_id
+                ? $query->where('user_id', $user_id)->forceDelete()
+                : $query->delete();
+
         return response()->json(['message' => 'Message Deleted'], 200);
     }
 }

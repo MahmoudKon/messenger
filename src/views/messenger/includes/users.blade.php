@@ -12,7 +12,7 @@
             $lastMessage        = null;
         }
         $is_seen = false;
-        if ($user->isOnline() || $first_conversation && $user->getAttributes()['last_seen'] >= $first_conversation->lastMessage->getAttributes()['created_at']) {
+        if ($user->isOnline() || $lastMessage && $user->getAttributes()['last_seen'] >= $lastMessage->getAttributes()['created_at']) {
             $is_seen = true;
         }
     @endphp
