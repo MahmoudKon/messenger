@@ -34,17 +34,26 @@ class ConversationController extends Controller
         });
 
         return response()->json([
-            'view' => view('messenger.includes.users', compact('users'))->render(),
+            'view' => view('messenger.includes.conversations', compact('users'))->render(),
             'next_page' => $next_page
+        ]);
+    }
+
+    public function singleConversation($id)
+    {
+        $users = config('messenger.model')::where('id', $id)
+                        ->with([
+                            'conversations' => function($query) { $query->onlyWithAuth(); }
+                        ])->get();
+
+        return response()->json([
+            'view' => view('messenger.includes.conversations', compact('users'))->render()
         ]);
     }
 
     public function users()
     {
-        $users = config('messenger.model')::exceptAuth()->search()
-                        ->with([
-                            'conversations' => function($query) { $query->onlyWithAuth(); }
-                        ])->orderBy('last_seen', 'DESC')->paginate(8);
+        $users = config('messenger.model')::exceptAuth()->search()->orderBy('last_seen', 'DESC')->paginate(8);
 
         $next_page = $users->currentPage() + 1;
         $next_page = $next_page <= $users->lastPage() ? $next_page : null;
