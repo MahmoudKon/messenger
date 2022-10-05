@@ -53,6 +53,5 @@ class MessengerCommand extends Command
             File::append(base_path('routes/channels.php'), $channels);
         }
         
-        File::copyDirectory(__DIR__.'/../assets/', public_path('assets'));
     }
 }
