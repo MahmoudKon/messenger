@@ -43,22 +43,14 @@ class MessengerCommand extends Command
      */
     protected function exportBackend()
     {
-        // if (stripos(file_get_contents(base_path('routes/web.php')), 'Messenger\Chat\MessengerRoutes::routes();') === false) {
-        //     $routes = "\n\nMessenger\Chat\MessengerRoutes::routes();\n\n";
-        //     File::append(base_path('routes/web.php'), $routes);
-        // }
+        if (stripos(file_get_contents(base_path('routes/web.php')), 'Messenger\Chat\MessengerRoutes::routes();') === false) {
+            $routes = "\n\nMessenger\Chat\MessengerRoutes::routes();\n\n";
+            File::append(base_path('routes/web.php'), $routes);
+        }
 
-        // if (stripos(file_get_contents(base_path('routes/channels.php')), 'Messenger\Chat\MessengerRoutes::channels();') === false) {
-        //     $channels = "\n\nMessenger\Chat\MessengerRoutes::channels();\n\n";
-        //     File::append(base_path('routes/channels.php'), $channels);
-        // }
-        
-        // File::copyDirectory(__DIR__.'/../config/', base_path('config'));
-
-        File::copyDirectory(__DIR__.'/../assets/', public_path('assets'));
-
-        // File::copyDirectory(__DIR__.'/../migrations/', database_path('migrations'));
-
-        File::copyDirectory(__DIR__.'/../views', resource_path('views'));
+        if (stripos(file_get_contents(base_path('routes/channels.php')), 'Messenger\Chat\MessengerRoutes::channels();') === false) {
+            $channels = "\n\nMessenger\Chat\MessengerRoutes::channels();\n\n";
+            File::append(base_path('routes/channels.php'), $channels);
+        }
     }
 }
