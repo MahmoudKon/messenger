@@ -243,18 +243,15 @@ $(function() {
 //? LINK **************************************************************** Helper Functions ****************************************************************************
 **********************************************************************************************************************************************************************/
 
-    let tabContentType = null;
     function loadConversations(page = 1, data = {}, empty = false) {
-        tabContentType = $('#tab-content-chats');
-        loadData(`?page=${page}`, data, empty)
+        loadData($('#tab-content-chats .conversations-list'), `?page=${page}`, data, empty)
     }
 
     function loadUsers(page = 1, data = {}, empty = false) {
-        tabContentType = $('#tab-content-friends');
-        loadData(`users?page=${page}`, data, empty)
+        loadData($('#tab-content-friends .users-list'), `users?page=${page}`, data, empty)
     }
 
-    function loadData(url = '', data = {}, empty = false) {
+    function loadData(ele, url = '', data = {}, empty = false) {
         jqXHR.abort();
         jqXHR = $.ajax({
             url: window.location.href+'/'+url,
@@ -262,8 +259,8 @@ $(function() {
             data: data,
             success: function (response) {
                 next_page = response.next_page;
-                if (empty) tabContentType.find('.conversations-list').empty();
-                tabContentType.find('.conversations-list').append(response.view);
+                if (empty) ele.empty();
+                ele.append(response.view);
             }
         });
     }
@@ -306,8 +303,13 @@ $(function() {
 
     // Reorder conversation according last send message
     function reOrder(message, user_id) {
-        let ele = $('body').find(`.conversations-list .user-room[data-user-id="${user_id}"]`);
+        let ele = $('body').find(`#tab-content-chats .conversations-list .conversation-item[data-user-id="${user_id}"]`);
         let sender = message.user_id == AUTH_USER_ID ? 'You: ' : `${message.user.name}: `;
+
+        if (ele.length == 0) {
+            loadNewConversation(message.conversation_id);
+            return;
+        }
 
         let msg = message.message;
         if (message.type != 'text') {
@@ -318,8 +320,17 @@ $(function() {
 
         ele.find('.last-message').text(sender + ' ' + msg);
         ele.find('.message-time').text(message.created_at);
-        tabContentType.find(`.conversations-list .user-room[data-user-id="${user_id}"]`).remove();
-        tabContentType.find('.conversations-list').prepend(ele.get(0));
+        ele.find('.conversations-list').prepend(ele.get(0));
+    }
+
+    function loadNewConversation(conversation_id) {
+        $.ajax({
+            url: window.location.href+'/single/conversation/'+conversation_id,
+            type: "get",
+            success: function (response, textStatus, jqXHR) {
+                $('body').find('#tab-content-chats .conversations-list').prepend(response.view);
+            }
+        });
     }
 
     function messageTemplate(message, new_class = '') {
@@ -559,4 +570,36 @@ $(function() {
             }
         });
     });
+
+    $('body').on('click', '.remove-conversation', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let form = $(this);
+
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            data: form.serialize(),
+            success: function(response, textStatus, jqXHR) {
+                form.closest('.conversation-item').remove();
+                $('#load-chat').empty().append(emptyPage());
+            }
+        });
+    });
+
+    function emptyPage() {
+        return `<div class="container h-100">
+                    <div class="d-flex flex-column h-100 justify-content-center text-center">
+                        <div class="mb-6">
+                            <span class="icon icon-xl text-muted">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            </span>
+                        </div>
+
+                        <p class="text-muted">Pick a person from left menu, <br> and start your conversation.</p>
+                    </div>
+                    <div class="dz-preview bg-dark" id="dz-preview-row" data-horizontal-scroll=""></div>
+                    <div id="dz-btn"> </div>
+                </div>`;
+    }
 });

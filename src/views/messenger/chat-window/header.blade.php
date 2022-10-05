@@ -33,15 +33,6 @@
                     </div>
                 </div>
                 <!-- Title -->
-
-                @if ($conversation->id)
-                    <div class="col-xl-6 d-none d-xl-block">
-                        <form action="{{ route('conversation.destroy', $conversation->id) }}" method="post">
-                            @csrf @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm float-end"> <i class="fa fa-trash"></i></button>
-                        </form>
-                    </div>
-                @endif
             </div>
         </div>
         <!-- Content -->

@@ -19,6 +19,7 @@ class MessengerRoutes
             Route::get('update/last-seen', [ConversationController::class, 'updateLastSeen'])->name('conversations.updateLastSeen');
             Route::get('user/{user}/details', [ConversationController::class, 'userDetails'])->name('user.details');
             Route::delete('conversation/{conversation}/destroy', [ConversationController::class, 'destroy'])->name('conversation.destroy');
+            Route::get('single/conversation/{id}', [ConversationController::class, 'singleConversation'])->name('conversation.single.conversation');
 
             Route::get('conversation/{user}/messages', [MessageController::class, 'index'])->name('conversation.user.messages');
             Route::get('conversation/{conversation}/messages/load-more', [MessageController::class, 'getMessages'])->name('conversation.load.messages');
