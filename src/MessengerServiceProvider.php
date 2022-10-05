@@ -24,9 +24,12 @@ class MessengerServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/routes/channels.php');
         $this->loadMigrationsFrom(__DIR__.'/migrations');
 
+        $this->loadViewsFrom(__DIR__.'/views/messenger', 'messenger');
+
         $this->publishes([
-            __DIR__.'/../config/messenger.php' => config_path('messenger.php'),
-        ]);
+            __DIR__.'/config/messenger.php' => config_path('messenger.php'),
+            __DIR__.'/assets/messenger' => public_path('assets/messenger'),
+        ], 'messenger');
     }
 }
 
