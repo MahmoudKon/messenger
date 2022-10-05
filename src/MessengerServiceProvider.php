@@ -10,17 +10,23 @@ class MessengerServiceProvider extends ServiceProvider
 {    
     public function register()
     {
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                MessengerCommand::class
-            ]);
+        // if ($this->app->runningInConsole()) {
+        //     $this->commands([
+        //         MessengerCommand::class
+        //     ]);
             
-        }
+        // }
     }
 
     public function boot()
     {        
-        //
+        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
+        $this->loadRoutesFrom(__DIR__.'/routes/channels.php');
+        $this->loadMigrationsFrom(__DIR__.'/migrations');
+
+        $this->publishes([
+            __DIR__.'/../config/messenger.php' => config_path('messenger.php'),
+        ]);
     }
 }
 
