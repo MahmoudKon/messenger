@@ -33,8 +33,8 @@
 
         @include('messenger.includes.modals')
 
-        @vite(['resources/js/app.js'])
-        {{-- <script type="text/javascript" src="{{ asset('/') }}js/app.js"></script> --}}
+        {{-- @vite(['resources/js/app.js']) --}}
+        <script type="text/javascript" src="{{ asset('/') }}js/app.js"></script>
         <script type="text/javascript">
             const AUTH_USER_ID    = {{ auth()->id() }};
             const audio           = new Audio(`{{ asset('/') }}assets/messenger/audios/success.mp3`);
