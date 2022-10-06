@@ -167,7 +167,7 @@ $(function() {
 **********************************************************************************************************************************************************************/
     // To get message from pusher and append it
     window.Echo.private(`new-message.${AUTH_USER_ID}`)
-                .listen('.new.message', (data) => {
+                .listen(EVENT, (data) => {
                     $('body').find(`[data-conversation-user="${conversation_user_id}"]`).find('.user-typing').remove();
                     $('#empty-conversations').remove();
                     reOrder(data.message, data.message.user_id);

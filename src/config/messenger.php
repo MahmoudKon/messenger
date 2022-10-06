@@ -4,6 +4,9 @@ return [
     // Model class  \App\Models\User::class
     'model'         => config('auth.providers.users.model'),
 
+    // the event broadcast as 
+    'event-name'  => '.new.message',
+
     // the image column name in the database of the model table
     'image_column'  => 'image',
 
