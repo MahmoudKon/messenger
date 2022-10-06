@@ -57,25 +57,27 @@ For php < 8
     }
 ```
 
-2- make publish for files
+2- make publish for views and assets files
 
 ```php
     php artisan vendor:publish --tag=messenger
 ```
 
-3- run install command to create routes:
-
+can make publish for each file using
 ```php
-    php artisan messenger:install
+    php artisan vendor:publish --tag=messenger-config
+    php artisan vendor:publish --tag=messenger-migrations
+    php artisan vendor:publish --tag=messenger-assets
+    php artisan vendor:publish --tag=messenger-views
 ```
 
-4- run migrations:
+3- run migrations:
 
 ```php
     php artisan migrate
 ```
 
-5- include `` app.js `` file in the messanger/index.blade.php:
+4- include `` app.js `` file in the messanger/index.blade.php:
 
 for `` mix ``
 
