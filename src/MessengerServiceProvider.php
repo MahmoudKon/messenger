@@ -10,12 +10,6 @@ class MessengerServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                MessengerCommand::class
-            ]);
-        }
-
         $this->publishRoutes();
 
         $this->mergeConfigFrom(
