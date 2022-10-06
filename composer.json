@@ -5,14 +5,15 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "mahmoud mohammed",
-            "email": "mahmoud.mohammed@ivas.com.eg"
+            "name": "Mahmoud Mohammed",
+            "email": "mahmoud.mohammed050684@gmail.com"
         }
     ],
     "minimum-stability": "dev",
     "require": {
         "php": "^8.0",
-        "laravel/framework": "^9.0"
+        "laravel/framework": "^9.0",
+        "pusher/pusher-php-server": "^7.0"
     },
     "autoload": {
         "psr-4": {
