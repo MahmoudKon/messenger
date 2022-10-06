@@ -21,6 +21,9 @@ return [
     // Set default image if user not have image  [full link]
     'default_image' => 'http://cdn.onlinewebfonts.com/svg/img_568657.png',
 
+    // set audio path for notification
+    'audio_path' => 'assets/messenger/audios/success.mp3',
+
     // To enable or disable the pusher logs in browser console
     'pusher_log' => false,
 ];

@@ -37,7 +37,7 @@
         <script type="text/javascript" src="{{ asset('/') }}js/app.js"></script>
         <script type="text/javascript">
             const AUTH_USER_ID    = {{ auth()->id() }};
-            const audio           = new Audio(`{{ asset('/') }}assets/messenger/audios/success.mp3`);
+            const audio           = new Audio(`{{ asset('assets/messenger/audios/success.mp3') }}`);
             const IMG_COLUMN_NAME = "{{ config('messenger.image_column') }}";
             const APPEND_URL      = "{{ config('messenger.img_url') }}";
             const DEFAULT_IMG     = "{{ config('messenger.default_image') }}";
