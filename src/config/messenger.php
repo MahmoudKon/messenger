@@ -2,7 +2,12 @@
 
 return [
     // Model class  \App\Models\User::class
-    'model'         => config('auth.providers.users.model'),
+    'model' => config('auth.providers.users.model'),
+
+
+    'route_prefix' => 'messenger',
+
+    'middleware' => ['auth', Messenger\Chat\Middleware\UserLastSeen::class],
 
     // the event broadcast as 
     'event-name'  => '.new.message',
