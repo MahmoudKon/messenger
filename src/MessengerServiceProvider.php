@@ -16,7 +16,7 @@ class MessengerServiceProvider extends ServiceProvider
             ]);
         }
 
-        $this->publisheRoutes();
+        $this->publishRoutes();
 
         $this->mergeConfigFrom(
             __DIR__.'/config/messenger.php', 'messenger'
