@@ -4,10 +4,14 @@ return [
     // Model class  \App\Models\User::class
     'model' => config('auth.providers.users.model'),
 
-
+    // The route prefix
     'route_prefix' => 'messenger',
 
-    'middleware' => ['auth', Messenger\Chat\Middleware\UserLastSeen::class],
+    // Set middlewars
+    'middleware' => [
+        'auth',
+        Messenger\Chat\Middleware\UserLastSeen::class // The to set time after user logout
+    ],
 
     // the event broadcast as 
     'event-name'  => '.new.message',
@@ -31,4 +35,10 @@ return [
 
     // To enable or disable the pusher logs in browser console
     'pusher_log' => false,
+
+    // After delete message from all, display placeholder
+    'deleted_message_placeholder' => 'This message was deleted',
+
+    // the active tab in messenger [tab-chats / tab-friends]
+    'active_tab' => 'tab-chats',
 ];

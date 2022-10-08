@@ -234,8 +234,9 @@ $(function() {
                                 if (AUTH_USER_ID != e.auth_id) return;
                                 changeReadMessageIcon(e.user_id, 'receive');
                             })
-                            .listenForWhisper('remove-image', (e) => {
-                                $('body').find(`[data-delete-message-id="${e.message_id}"]`).closest('.message-content').addClass('text-muted').text('This messages wass deleted');
+                            .listenForWhisper('remove-message', (e) => {
+                                $('body').find(`#last-message-id-${e.message_id}`).text(DELETED_MESSAGE_PLACEHOLDER);
+                                $('body').find(`[data-delete-message-id="${e.message_id}"]`).closest('.message-content').addClass('text-muted').text(DELETED_MESSAGE_PLACEHOLDER);
                             });
 
 
@@ -318,7 +319,7 @@ $(function() {
             msg = `Send ${type}`;
         }
 
-        ele.find('.last-message').text(sender + ' ' + msg);
+        ele.find('.last-message').text(sender + ' ' + msg).removeAttr('id').attr('id', `last-message-id-${message.id}`);
         ele.find('.message-time').text(message.created_at);
         ele.find('.conversations-list').prepend(ele.get(0));
     }
@@ -336,32 +337,28 @@ $(function() {
     function messageTemplate(message, new_class = '') {
         let img = message.user[IMG_COLUMN_NAME] ? APPEND_URL+'/'+message.user[IMG_COLUMN_NAME] : DEFAULT_IMG;
         let users = [];
+        let content = null;
 
         if (message.users) {
             message.users.forEach(user => {
                 users[user.id] = user.pivot.deleted_at;
             });
 
-
-            if (users[AUTH_USER_ID] !== null) {
-                return `<div class="message ${new_class}">
-                            <a href="${window.location.href}/user/${message.user_id}/details" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive">
-                                <img class="avatar-img" src="${img}" alt="" width='100%'>
-                            </a>
-
-                            <div class="message-inner">
-                                <div class='layout-download d-none'></div>
-                                <div class="message-body">
-                                    <div class="message-content text-muted">This messages wass deleted</div>
-
-                                    <div class="message-footer">
-                                        <span class="extra-small text-muted">${message.created_at}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
-            }
+            if (users[AUTH_USER_ID] !== null) content = DELETED_MESSAGE_PLACEHOLDER;
         }
+
+        if (content == null) {
+            content = `<div class="${message.type == 'text' ? 'message-text' : ''}">
+                            ${buildFile (message.type, message.message)}
+                        </div>
+                        <span class='d-none btn btn-secondary btn-sm' data-delete-message-id="${message.id}"> <i class='fa fa-trash'></i> </span>
+                        ${
+                            message.user_id == AUTH_USER_ID
+                                ? `<span class='d-none btn btn-danger btn-sm remove-from-all' data-delete-message-id="${message.id}"> <i class='fa fa-trash'></i> Delete From All</span>`
+                                : ''
+                        }`;
+        }
+
 
         return `<div class="message ${new_class}">
                     <a href="${window.location.href}/user/${message.user_id}/details" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive">
@@ -371,18 +368,7 @@ $(function() {
                     <div class="message-inner">
                         <div class='layout-download d-none'></div>
                         <div class="message-body">
-                            <div class="message-content">
-                                <div class="${message.type == 'text' ? 'message-text' : ''}">
-                                    ${buildFile (message.type, message.message)}
-                                </div>
-                                <span class='d-none btn btn-secondary btn-sm' data-delete-message-id="${message.id}"> <i class='fa fa-trash'></i> </span>
-                                ${
-                                    message.user_id == AUTH_USER_ID
-                                        ? `<span class='d-none btn btn-danger btn-sm remove-from-all' data-delete-message-id="${message.id}"> <i class='fa fa-trash'></i> Delete From All</span>`
-                                        : ''
-                                }
-
-                            </div>
+                            <div class="message-content text-muted">${content}</div>
                         </div>
 
                         <div class="message-footer">
@@ -395,7 +381,6 @@ $(function() {
     function newMessagesTemplate(count) {
         return `<div class="message-divider"> <small class="text-muted">New ${count} Messages</small> </div>`;
     }
-
 
     function typing() {
         return `<div class="message user-typing">
@@ -426,7 +411,6 @@ $(function() {
                 </div>`;
     }
 
-
     function toggleTyping(check, user_id)
     {
         let user_item = $('.conversations-list, .users-list').find(`[data-user-id="${user_id}"]`);
@@ -439,7 +423,6 @@ $(function() {
             user_item.find('.user-typing').addClass('d-none');
         }
     }
-
 
     function toggleTypingInChat(check, user_id)
     {
@@ -511,7 +494,9 @@ $(function() {
 
     }, true);
 
-    $('#tab-friends').click();
+    let active_tap = $('#'+TAP_ACTIVE);
+    active_tap.addClass('active').click();
+    $(active_tap.attr('href')).addClass('active show');
 
 
     $('body').on('mouseenter', '#load-chat .message .message-content', function (e) {
@@ -551,6 +536,7 @@ $(function() {
     $('body').on('click', '[data-delete-message-id]', function() {
         let btn = $(this);
         let url = `message/${btn.data('delete-message-id')}/delete`;
+        let last_message = $('body').find(`#last-message-id-${btn.data('delete-message-id')}`);
 
         if (!btn.hasClass('remove-from-all')) url += `/${AUTH_USER_ID}`;
 
@@ -558,13 +544,15 @@ $(function() {
             url: window.location.href+`/${url}`,
             type: 'POST',
             success: function(response, textStatus, jqXHR) {
+                if (last_message.length) last_message.text(DELETED_MESSAGE_PLACEHOLDER);
+
                 if (! btn.hasClass('remove-from-all')) {
-                    btn.closest('.message ').remove();
+                    btn.closest('.message').remove();
                     return ;
                 }
 
-                btn.closest('.message-content').addClass('text-muted').text('This messages wass deleted');
-                chatChannel.whisper('remove-image', {
+                btn.closest('.message-content').addClass('text-muted').text(DELETED_MESSAGE_PLACEHOLDER);
+                chatChannel.whisper('remove-message', {
                     message_id: btn.data('delete-message-id'),
                 });
             }

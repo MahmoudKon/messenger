@@ -3,7 +3,7 @@
     <div class="tab-content h-100" role="tablist">
         <!-- Create -->
 
-        <div class="tab-pane fade h-100 show active" id="tab-content-friends" role="tabpanel">
+        <div class="tab-pane fade h-100" id="tab-content-friends" role="tabpanel">
             <div class="d-flex flex-column h-100">
                 <div class="hide-scrollbar">
                     <div class="container py-8">

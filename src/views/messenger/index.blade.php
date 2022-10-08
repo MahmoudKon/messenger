@@ -42,6 +42,8 @@
             const APPEND_URL      = "{{ config('messenger.img_url') }}";
             const DEFAULT_IMG     = "{{ config('messenger.default_image') }}";
             const EVENT           = "{{ config('messenger.event-name') }}";
+            const DELETED_MESSAGE_PLACEHOLDER = "{{ config('messenger.deleted_message_placeholder') }}";
+            const TAP_ACTIVE = "{{ config('messenger.active_tab') }}";
             Pusher.logToConsole   = "{{ config('messenger.pusher_log') }}";
         </script>
         <script type="text/javascript" src="{{ asset('/') }}assets/messenger/js/jquery-3.6.1.min.js"></script>

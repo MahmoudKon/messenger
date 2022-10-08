@@ -33,11 +33,11 @@
                     <div class="d-flex align-items-center">
                         <div class="line-clamp me-auto">
                             <span class="user-typing d-none"> is typing<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span> </span>
-                            <span class="last-message">
+                            <span class="last-message" id="last-message-id-{{ $lastMessage->id ?? '' }}">
                                 @if ($lastMessage)
-                                    @php $user_id = $lastMessage->users->pluck('pivot.deleted_at', 'pivot.user_id'); @endphp
-                                    @if (isset($user_id[auth()->id()]) && $user_id[auth()->id()])
-                                        <span class="text-muted">This message was deleted</span>
+                                    @php $user_id = $lastMessage->users->pluck('pivot.deleted_at', 'pivot.user_id')->toArray(); @endphp
+                                    @if ((isset($user_id[auth()->id()]) && $user_id[auth()->id()]) || ! array_key_exists(auth()->id(), $user_id))
+                                        <span class="text-muted">{{ config('messenger.deleted_message_placeholder') }}</span>
                                     @else
                                         {{ $first_conversation->lastMessage->user_id == auth()->id() ? 'You: ' : $first_conversation->lastMessage->user->name.': ' }}
                                         @if ($first_conversation->lastMessage->type == 'text')
