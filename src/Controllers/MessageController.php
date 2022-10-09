@@ -143,9 +143,13 @@ class MessageController extends Controller
     {
         $query = MessageUser::where('message_id', $message_id);
 
-        $user_id
-                ? $query->where('user_id', $user_id)->forceDelete()
-                : $query->delete();
+        if ($user_id) {
+            $update_seen = $query;
+            $update_seen->update(['read_at' => now()]);
+            $query->delete();
+        } else {
+            $query->where('user_id', $user_id)->forceDelete();
+        }
 
         return response()->json(['message' => 'Message Deleted'], 200);
     }
