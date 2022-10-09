@@ -12,6 +12,7 @@
 
         <!-- Template CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
         <link rel="stylesheet" href="{{ asset('/') }}assets/messenger/css/template.bundle.dark.css">
         <link rel="stylesheet" href="{{ asset('/') }}assets/messenger/css/template.dark.bundle.css" media="(prefers-color-scheme: dark)">
         <link rel="stylesheet" href="{{ asset('/') }}assets/messenger/css/style.css">
@@ -32,20 +33,22 @@
 
         @include('messenger.includes.modals')
 
-        <!-- Scripts -->
-        <script>
+        <script type="text/javascript" src="{{ asset('/') }}js/app.js"></script>
+        <script type="text/javascript">
             const AUTH_USER_ID    = {{ auth()->id() }};
-            const audio           = new Audio(`{{ asset('/') }}assets/messenger/audios/success.mp3`);
+            const audio           = new Audio(`{{ asset(config('messenger.audio_path')) }}`);
             const IMG_COLUMN_NAME = "{{ config('messenger.image_column') }}";
             const APPEND_URL      = "{{ config('messenger.img_url') }}";
             const DEFAULT_IMG     = "{{ config('messenger.default_image') }}";
+            const EVENT           = "{{ config('messenger.event-name') }}";
+            const DELETED_MESSAGE_PLACEHOLDER = "{{ config('messenger.deleted_message_placeholder') }}";
+            const TAP_ACTIVE = "{{ config('messenger.active_tab') }}";
+            Pusher.logToConsole   = "{{ config('messenger.pusher_log') }}";
         </script>
-        <script type="text/javascript" src="{{ asset('/') }}js/app.js"></script>
         <script type="text/javascript" src="{{ asset('/') }}assets/messenger/js/jquery-3.6.1.min.js"></script>
         <script type="text/javascript" src="{{ asset('/') }}assets/messenger/js/vendor.js"></script>
         <script type="text/javascript" src="{{ asset('/') }}assets/messenger/js/template.js"></script>
         <script type="text/javascript" src="{{ asset('/') }}assets/messenger/js/moment.js"></script>
         <script type="text/javascript" src="{{ asset('/') }}assets/messenger/js/messenger.js"></script>
-        <script> Pusher.logToConsole   = "{{ config('messenger.pusher_log') }}"; </script>
     </body>
 </html>
