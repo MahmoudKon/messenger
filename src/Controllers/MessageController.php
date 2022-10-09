@@ -148,7 +148,7 @@ class MessageController extends Controller
             $update_seen->update(['read_at' => now()]);
             $query->delete();
         } else {
-            $query->where('user_id', $user_id)->forceDelete();
+            $query->where('user_id', auth()->id())->forceDelete();
         }
 
         return response()->json(['message' => 'Message Deleted'], 200);
