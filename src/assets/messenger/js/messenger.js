@@ -370,10 +370,9 @@ $(function() {
                                 <a class="icon text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                 </a>
-
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="dropdown-item d-flex align-items-center text-danger remove-conversation-message" data-message-id="${message.id}" href="message/${message.id}/delete">
+                                        <a class="dropdown-item d-flex align-items-center text-danger remove-conversation-message" data-message-id="${message.id}" href="message/${message.id}/delete/${AUTH_USER_ID}">
                                             <div class="icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                             </div>
@@ -382,7 +381,7 @@ $(function() {
                                     </li>`;
             if (message.user_id == AUTH_USER_ID) {
                 content += `<li>
-                                <a class="dropdown-item d-flex align-items-center text-danger remove-from-all remove-conversation-message" data-message-id="${message.id}" href="message/${message.id}/delete/${AUTH_USER_ID}">
+                                <a class="dropdown-item d-flex align-items-center text-danger remove-from-all remove-conversation-message" data-message-id="${message.id}" href="message/${message.id}/delete">
                                     <div class="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                     </div>
@@ -397,13 +396,11 @@ $(function() {
                     <a href="${window.location.href}/user/${message.user_id}/details" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive">
                         <img class="avatar-img" src="${img}" alt="" width='100%'>
                     </a>
-
                     <div class="message-inner">
                         <div class='layout-download d-none'></div>
                         <div class="message-body">
                             <div class="message-content text-muted">${content}</div>
                         </div>
-
                         <div class="message-footer">
                             <span class="extra-small text-muted">${message.created_at}</span>
                         </div>
@@ -437,10 +434,8 @@ $(function() {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                             </span>
                         </div>
-
                         <p class="text-muted">No messages here yet..., <br> Send a message.</p>
                     </div>
-
                 </div>`;
     }
 
@@ -606,7 +601,6 @@ $(function() {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                             </span>
                         </div>
-
                         <p class="text-muted">Pick a person from left menu, <br> and start your conversation.</p>
                     </div>
                     <div class="dz-preview bg-dark" id="dz-preview-row" data-horizontal-scroll=""></div>
