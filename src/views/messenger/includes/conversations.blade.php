@@ -18,7 +18,11 @@
             <div class="row gx-5">
                 <div class="col-auto">
                     <div class="avatar {{ $user->isOnline() ? 'avatar-online' : '' }} online-status-{{ $user->id }}">
-                        <img src="{{ $user->avatar }}" alt="#" class="avatar-img">
+                        @if($user->avatar)
+                            <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="avatar-img">
+                        @else
+                            <span class="draw-avatar" title="{{ $user->name }}" style="background-color: #{{ substr(md5(rand()), 0, 6) }}">{{ ucfirst($user->name[0]) }}</span>
+                        @endif
                     </div>
                 </div>
 
