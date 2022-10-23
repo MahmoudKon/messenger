@@ -4,6 +4,7 @@ namespace Messenger\Chat\Traits;
 
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Messenger\Chat\Models\Conversation;
 use Messenger\Chat\Models\Message;
 use Messenger\Chat\Models\MessageUser;
@@ -46,6 +47,12 @@ trait Messageable
     public function isOnline()
     {
         return Cache::has('user-is-online-' . $this->id);
+    }
+
+    public function makeOflline()
+    {
+        DB::statement("UPDATE `{$this->getTable()}` SET `last_seen` = '".now()."' WHERE `id` = $this->id");
+        Cache::forget('user-is-online-' . $this->id);
     }
 
     public function scopeSearch($query)
