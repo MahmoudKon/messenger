@@ -21,7 +21,7 @@
                 <div class="col-12 col-xl-6">
                     <div class="row align-items-center gx-5">
                         <div class="col-auto">
-                            <a href="{{ route('user.details', $user) }}" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar d-none d-xl-inline-block {{ $user->isOnline() ? 'avatar-online' : '' }} online-status-{{ $user->id ?? '' }}">
+                            <a href="{{ route('user.details', $user) }}" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar {{ $user->isOnline() ? 'avatar-online' : '' }} online-status-{{ $user->id ?? '' }}">
                                 @if($user->avatar)
                                     <img class="avatar-img" src="{{ $user->avatar }}" alt="{{ $user->name }}" style="height: 44px;">
                                 @else
