@@ -21,8 +21,13 @@
                 <div class="col-12 col-xl-6">
                     <div class="row align-items-center gx-5">
                         <div class="col-auto">
-                            <a href="{{ route('user.details', $user) }}" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar d-none d-xl-inline-block {{ $user->isOnline() ? 'avatar-online' : '' }} online-status-{{ $user->id ?? '' }}">
+                            <a href="{{ route('user.details', $user) }}" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar {{ $user->isOnline() ? 'avatar-online' : '' }} online-status-{{ $user->id ?? '' }}">
                                 <img class="avatar-img" src="{{ $user->avatar }}" alt="" style="height: 44px;">
+                                @if($user->avatar)
+                                    <img class="avatar-img" src="{{ $user->avatar }}" alt="{{ $user->name }}" width="100%" height="100%">
+                                @else
+                                    <span class="draw-avatar" style="background-color: #{{ substr(md5(rand()), 0, 6) }}; line-height: 2; font-size: 35px">{{ ucfirst($user->name[0]) }}</span>
+                                @endif
                             </a>
                         </div>
 

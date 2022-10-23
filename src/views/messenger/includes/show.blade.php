@@ -11,7 +11,11 @@
 
         <div class="profile-body">
             <div class="avatar avatar-xl">
-                <img class="avatar-img" src="{{ $user->avatar }}" alt="#" width="100%">
+                @if($user->avatar)
+                    <img class="avatar-img" src="{{ $user->avatar }}" alt="{{ $user->name }}" width="100%" height="100%">
+                @else
+                    <span class="draw-avatar" style="background-color: #{{ substr(md5(rand()), 0, 6) }}; line-height: 2; font-size: 35px">{{ ucfirst($user->name[0]) }}</span>
+                @endif
             </div>
 
             <h4 class="mb-1">{{ $user->name }}</h4>

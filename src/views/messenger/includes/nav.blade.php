@@ -6,12 +6,23 @@
     </a>
 
     <a href="{{ route('user.details', auth()->id()) }}" class="nav-link p-0 mt-lg-2" data-bs-toggle="modal" data-bs-target="#modal-user-profile">
-        <div class="avatar avatar-online mx-auto d-none d-xl-block">
-            <img class="avatar-img" src="{{ auth()->user()->avatar }}" alt="">
-        </div>
-        <div class="avatar avatar-online avatar-xs d-xl-none">
-            <img class="avatar-img" src="{{ auth()->user()->avatar }}" alt="">
-        </div>
+        @if(auth()->user()->avatar)
+            <div class="avatar avatar-online mx-auto d-none d-xl-block">
+                <img class="avatar-img" src="{{ auth()->user()->avatar }}" alt="{{ auth()->user()->name }}">
+            </div>
+            <div class="avatar avatar-online avatar-xs d-xl-none">
+                <img class="avatar-img" src="{{ auth()->user()->avatar }}" alt="{{ auth()->user()->name }}">
+            </div>
+        @else
+            <div class="avatar avatar-online mx-auto">
+                <span class="draw-avatar" style="background-color: #{{ substr(md5(rand()), 0, 6) }}">{{ ucfirst(auth()->user()->name[0]) }}</span>
+            </div>
+
+            <div class="avatar avatar-online avatar-xs d-xl-none">
+                <span class="draw-avatar" style="background-color: #{{ substr(md5(rand()), 0, 6) }}">{{ ucfirst(auth()->user()->name[0]) }}</span>
+            </div>
+        @endif
+        
         <small>{{ auth()->user()->name }}</small>
     </a>
 

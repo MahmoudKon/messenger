@@ -66,7 +66,7 @@ class ConversationController extends Controller
 
     public function updateLastSeen()
     {
-        config('messenger.model')::find(request('user_id'))->update(['last_seen' => now()]);
+        config('messenger.model')::find(request('user_id'))->makeOflline();
         return 'updated';
     }
 
