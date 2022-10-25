@@ -32,6 +32,8 @@ return [
 
     // set audio path for notification
     'audio_path' => 'assets/messenger/audios/success.mp3',
+    
+    'upload_path' => 'public/uploads/messenger/',
 
     // To enable or disable the pusher logs in browser console
     'pusher_log' => false,

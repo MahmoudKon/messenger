@@ -75,9 +75,9 @@ class MessageController extends Controller
                 $type = $request->file->getMimeType();
                 if (stripos($request->file->getMimeType(), 'image') !== false) {
                     [$width, $height] = getimagesize($request->file);
-                    $data = $this->uploadImage($request->file, 'messages', $width, $height, false, 50);
+                    $data = $this->uploadImage($request->file, config('messenger.upload_path'), $width, $height, false, 50);
                 } else {
-                    $data = $this->uploadImage($request->file, 'messages', null, null);
+                    $data = $this->uploadImage($request->file, config('messenger.upload_path'), null, null);
                 }
             }
 

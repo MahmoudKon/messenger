@@ -28,7 +28,7 @@ trait UploadFile
     */
     protected function checkFolderIsExists($folder)
     {
-        $path =  public_path($this->getPath($folder));
+        $path =  base_path($this->getPath($folder));
 
         if (!File::exists($path))
             File::makeDirectory($path, 0777, true);
@@ -38,6 +38,6 @@ trait UploadFile
 
     protected function getPath($folder, $file_name = '')
     {
-        return "uploads/$folder/$file_name";
+        return "$folder/$file_name";
     }
 }

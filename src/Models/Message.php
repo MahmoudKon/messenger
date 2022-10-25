@@ -21,7 +21,7 @@ class Message extends Model
 
     public function getMessageAttribute($value)
     {
-        return $this->type == 'text' ? $value : asset("uploads/messages/$value");
+        return $this->type == 'text' ? $value : asset(config('messenger.upload_path').$value);
     }
 
     public function user()
