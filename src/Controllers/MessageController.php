@@ -10,6 +10,7 @@ use Messenger\Chat\Models\Message;
 use Messenger\Chat\Models\MessageUser;
 use Messenger\Chat\Traits\UploadFile;
 use Illuminate\Support\Facades\DB;
+use Messenger\Chat\Models\ConversationUser;
 use Throwable;
 
 class MessageController extends Controller
@@ -128,6 +129,8 @@ class MessageController extends Controller
         if (! $conversation) {
             $conversation = Conversation::create(['user_id' => auth()->id()]);
             $conversation->users()->attach([auth()->id(), $user_id]);
+        } else {
+            ConversationUser::where(['conversation_id' => $conversation->id, 'user_id' => $user_id])->restore();
         }
         return $conversation;
     }
