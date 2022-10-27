@@ -12,7 +12,7 @@
 
         <!-- Template CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        
+
         <link rel="stylesheet" href="{{ asset('/') }}assets/messenger/css/template.bundle.dark.css">
         <link rel="stylesheet" href="{{ asset('/') }}assets/messenger/css/template.dark.bundle.css" media="(prefers-color-scheme: dark)">
         <link rel="stylesheet" href="{{ asset('/') }}assets/messenger/css/style.css">
@@ -37,6 +37,7 @@
         <script type="text/javascript" src="{{ asset('/') }}js/app.js"></script>
         <script type="text/javascript">
             const AUTH_USER_ID    = {{ auth()->id() }};
+            const AUTH_USER_IMAGE = '{{ auth()->user()->image }}';
             const audio           = new Audio(`{{ asset(config('messenger.audio_path')) }}`);
             const IMG_COLUMN_NAME = "{{ config('messenger.image_column') }}";
             const APPEND_URL      = "{{ config('messenger.img_url') }}";
