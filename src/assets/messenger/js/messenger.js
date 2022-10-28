@@ -71,27 +71,51 @@ $(function() {
         }, true);
 
 
-    $('body').on('submit', '#send-message', function(e) {
-        e.preventDefault();
-        $.ajax({
-            url: $(this).attr('action'),
-            type: $(this).attr('method'),
-            data: new FormData($(this)[0]),
-            dataType: 'JSON',
-            processData: false,
-            contentType: false,
-            success: function(response, textStatus, jqXHR) {
-                $('#empty-chat, #empty-conversations').remove();
-                $('#load-chat').find('.message-divider').remove();
-                $('[name="message"]').val('');
-                $('[name="file"]').val('');
-                changeReadMessageIcon($('[name="user_id"]').val(), 'send');
-                reOrder(response.message, response.user_id);
-                $('#load-chat').find(`[data-conversation-user='${response.user_id}']`).append(messageTemplate(response.message, 'message-out'));
-                $('#load-chat .chat-body').animate({scrollTop: $('#load-chat .chat-body').prop("scrollHeight")}, 100);
-            }
+        $('body').on('submit', '#send-message', function(e) {
+            e.preventDefault();
+            let data = new FormData($(this)[0]);
+            let message_text = $('[name="message"]').val();
+            $('[name="message"]').val('');
+            $('[name="file"]').val('');
+            ele_id = new Date().getTime();
+            let ele = `<div class="message message-out" id='new-append-message-${ele_id}'>
+                            <a href="${window.location.href}/user/${AUTH_USER_ID}/details" data-bs-toggle="modal" data-bs-target="#modal-user-profile" class="avatar avatar-responsive">
+                                <img class="avatar-img" src="/${AUTH_USER_IMAGE}" alt="" width='100%'>
+                            </a>
+                            <div class="message-inner">
+                                <div class="message-body">
+                                    <div class="message-content text-muted">
+                                        <div class="message-text">
+                                            ${message_text}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="message-footer">
+                                    <span class="extra-small text-muted"></span>
+                                </div>
+                            </div>
+                        </div>`;
+    
+            $('#load-chat').find(`[data-conversation-user]`).append(ele);
+            $('#load-chat .chat-body').animate({scrollTop: $('#load-chat .chat-body').prop("scrollHeight")}, 100);
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: data,
+                dataType: 'JSON',
+                processData: false,
+                contentType: false,
+                success: function(response, textStatus, jqXHR) {
+                    $('#empty-chat, #empty-conversations').remove();
+                    $('#load-chat').find('.message-divider').remove();
+                    changeReadMessageIcon($('[name="user_id"]').val(), 'send');
+                    reOrder(response.message, response.user_id);
+                    $('#load-chat').find(`[data-conversation-user='${response.user_id}'] #new-append-message-${ele_id}`).remove();
+                    $('#load-chat').find(`[data-conversation-user='${response.user_id}']`).append(messageTemplate(response.message, 'message-out'));
+                    $('#load-chat .chat-body').animate({scrollTop: $('#load-chat .chat-body').prop("scrollHeight")}, 100);
+                }
+            });
         });
-    });
 
 
     $('body').on('change', '#input-file', function() {
